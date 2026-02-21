@@ -110,14 +110,20 @@ if user_input:
     kb_text = load_knowledge_base()
     client = get_client()
 
-    api_messages = []
-    for i, msg in enumerate(st.session_state.messages):
-        if msg["role"] == "user" and i == 0 and kb_text:
-            # Prepend knowledge base to the very first user message
-            content = f"Here is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}\n\n---\n\n{msg['content']}"
-        else:
-            content = msg["content"]
-        api_messages.append({"role": msg["role"], "content": content})
+    # Only send the last 20 messages to keep costs down
+    recent_messages = st.session_state.messages[-20:]
+    api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
+
+    # System prompt with KB appended and cache_control so the KB is only billed
+    # at full price once per 5-minute cache window (~10% cost on cache hits).
+    system_with_kb = [
+        {"type": "text", "text": SYSTEM_PROMPT},
+        {
+            "type": "text",
+            "text": f"Here is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}",
+            "cache_control": {"type": "ephemeral"},
+        },
+    ]
 
     # Stream the assistant reply
     with st.chat_message("assistant"):
@@ -127,8 +133,9 @@ if user_input:
         with client.messages.stream(
             model="claude-haiku-4-5-20251001",
             max_tokens=1024,
-            system=SYSTEM_PROMPT,
+            system=system_with_kb,
             messages=api_messages,
+            betas=["prompt-caching-2024-07-31"],
         ) as stream:
             for text in stream.text_stream:
                 full_response += text
