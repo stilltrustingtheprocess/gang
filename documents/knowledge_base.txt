@@ -1779,3 +1779,26 @@ Examples
 Page 10
 
 Questions and suggestions
+
+=== Quick Reference Q&A (slides / DS) ===
+
+Question: I need help with making slides
+Answer: Check this out - it has lots of icons that you can use that are all in PolyAI brand/style: https://drive.google.com/drive/folders/1E2raETxju6M2e31CJY_daKzOk7EWh5mJ
+
+Question: How do I download the fonts?
+Answer: You can download them on the deployments playbook - https://www.notion.so/polyai/Deployments-Playbook-fb6e81d5a5d947ecb2f9571dc7fe4e8f
+
+Question: Where can I see my client's order form or contract?
+Answer: Here - https://drive.google.com/drive/folders/1CKZV8Hx7z4nGz2d1aGm6oyvzoTybqR58
+
+Question: I'm having issues with ASR / barge in
+Answer: Reach out to #ask_runtime, as this is the team responsible for this.
+
+Question: I have a question about deployment strategy
+Answer: See the deployments playbook: https://www.notion.so/polyai/Deployments-Playbook-fb6e81d5a5d947ecb2f9571dc7fe4e8f
+
+Question: I don't understand telephony / do you have any telephony resources?
+Answer: Ping Rob directly - there are recordings for telephony that explain the process well.
+
+Question: What is a telephony intro call like?
+Answer: We should bring on an FDE to explain the process and run through the SIP workbook if needed!
