@@ -75,16 +75,7 @@ st.markdown("""
   }
   [data-testid="stChatInput"] textarea:focus {
     border-color: #000000 !important;
-    box-shadow: none !important;
-    background: #ffffff !important;
-  }
-
-  /* Keep the fixed bottom bar the same colour as the page */
-  [data-testid="stBottom"],
-  [data-testid="stBottom"] > div,
-  [data-testid="stBottom"] > div > div {
-    background: #DCED4B !important;
-    box-shadow: none !important;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.15) !important;
   }
 
   /* Starter prompt chips */
@@ -285,7 +276,11 @@ if "feedback" not in st.session_state:
 # ── UI ────────────────────────────────────────────────────────────────────────
 
 # Header — avatar circle + name + subtitle
-_avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
+_b64 = load_avatar_b64()
+if _b64:
+    _avatar_html = f'<img src="data:image/png;base64,{_b64}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #000;flex-shrink:0;"/>'
+else:
+    _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
 
 _kb_date = kb_last_updated()
 st.markdown(f"""
@@ -300,8 +295,10 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Render conversation history
+_avatar = load_avatar()
 for _i, msg in enumerate(st.session_state.messages):
-    avatar_kwargs = {"avatar": "✦"} if msg["role"] == "assistant" else {}
+    avatar = _avatar if msg["role"] == "assistant" and _avatar else None
+    avatar_kwargs = {"avatar": avatar} if avatar is not None else {}
     with st.chat_message(msg["role"], **avatar_kwargs):
         st.markdown(msg["content"])
         if msg["role"] == "assistant":
@@ -373,7 +370,8 @@ if user_input and not _limit_reached:
     system_with_kb = f"{SYSTEM_PROMPT}\n\nHere is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}"
 
     # Stream the assistant reply
-    with st.chat_message("assistant", avatar="✦"):
+    avatar_kwargs = {"avatar": _avatar} if _avatar is not None else {}
+    with st.chat_message("assistant", **avatar_kwargs):
         response_placeholder = st.empty()
         full_response = ""
 
