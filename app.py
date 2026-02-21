@@ -81,13 +81,14 @@ st.markdown("""
   /* Starter prompt chips */
   div[data-testid="stHorizontalBlock"] [data-testid="stBaseButton-secondary"] {
     border-radius: 20px !important;
-    border: 1px solid rgba(0,0,0,0.25) !important;
-    background: rgba(255,255,255,0.6) !important;
-    color: #444 !important;
-    font-size: 0.75rem !important;
-    padding: 0.25rem 0.75rem !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    background: rgba(255,255,255,0.45) !important;
+    color: #888 !important;
+    font-size: 0.68rem !important;
+    padding: 0.15rem 0.6rem !important;
     text-align: left !important;
     transition: background 0.15s, color 0.15s !important;
+    min-height: unset !important;
   }
   div[data-testid="stHorizontalBlock"] [data-testid="stBaseButton-secondary"]:hover {
     background: #111 !important;
@@ -334,7 +335,7 @@ elif _nearing_limit:
 
 # Starter prompt chips — only shown before the first message
 if not st.session_state.messages:
-    st.markdown('<div style="font-size:0.7rem;color:#888;margin:0.4rem 0 0.3rem 0;">Try asking:</div>', unsafe_allow_html=True)
+    st.markdown('<div style="font-size:0.65rem;color:#aaa;margin:0.3rem 0 0.2rem 0;">Try asking:</div>', unsafe_allow_html=True)
     _sc = st.columns(2)
     for _si, _sp in enumerate(STARTER_PROMPTS):
         if _sc[_si % 2].button(_sp, key=f"starter_{_si}", use_container_width=True):
