@@ -29,21 +29,21 @@ st.markdown("""
     padding-bottom: 1rem;
   }
 
-  /* Assistant bubble — white card */
+  /* Assistant bubble — same green as page */
   [data-testid="stChatMessage"] {
-    background: #ffffff;
+    background: #DCED4B !important;
     border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 0.5rem 0.85rem !important;
-    margin-bottom: 0.35rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
-    font-size: 0.875rem;
+    border: none;
+    padding: 0.4rem 0.85rem !important;
+    margin-bottom: 0.25rem;
+    box-shadow: none;
+    font-size: 0.8rem;
   }
 
   /* User bubble — black card with white text */
   [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
-    background: #111111;
-    border-color: #000000;
+    background: #111111 !important;
+    border: 1px solid #000 !important;
   }
   [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) p,
   [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) .stMarkdown {
@@ -363,14 +363,7 @@ if user_input and not _limit_reached:
     recent_messages = st.session_state.messages[-4:]
     api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
 
-    system_with_kb = [
-        {"type": "text", "text": SYSTEM_PROMPT},
-        {
-            "type": "text",
-            "text": f"Here is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}",
-            "cache_control": {"type": "ephemeral"},
-        },
-    ]
+    system_with_kb = f"{SYSTEM_PROMPT}\n\nHere is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}"
 
     # Stream the assistant reply
     avatar_kwargs = {"avatar": _avatar} if _avatar is not None else {}
@@ -383,7 +376,6 @@ if user_input and not _limit_reached:
             max_tokens=512,
             system=system_with_kb,
             messages=api_messages,
-            extra_headers={"anthropic-beta": "prompt-caching-2024-07-31"},
         ) as stream:
             for text in stream.text_stream:
                 full_response += text
