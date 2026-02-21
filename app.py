@@ -125,7 +125,7 @@ if user_input:
         full_response = ""
 
         with client.messages.stream(
-            model="claude-haiku-3-5-20241022",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1024,
             system=SYSTEM_PROMPT,
             messages=api_messages,
