@@ -1,0 +1,1781 @@
+=== BCN Client Objections ===
+Handling Client 
+Objections
+
+Agent Performance
+tl;dr relate everything to human agents and then show them how they can fix it themselves
+
+Handling Client Objections
+Agent Performance
+Voice Problems
+“not natural enough”
+“sounds rude”
+“doesn’t match our brand”
+Say 
+• Acknowledge any issues 
+• Explain that Poly Voices are the 
+ones where we have the most 
+control
+Do 
+We have so many tools we can demo in Agent 
+Studio! 
+Whether it’s Response Control, or Audio 
+Management or even showing them how to run 
+A/B tests in Agent Voice - this is something we 
+can always object to well
+“keeps pronouncing our company name wrong ”
+Voice is our bread and butter - we believe high quality voice experiences is the key to gaining 
+customer trust and fostering high performance. Therefore, our platform provides many tools for you 
+to manage the Voices that you select, and give you a high level of control to optimise them for your 
+calls.
+􁷙
+
+Handling Client Objections
+Agent Performance
+Intent Accuracy
+“it hallucinated”
+Say 
+•An LLM is a Probabilistic model 
+that’s using the information it has 
+available 
+•It’s designed to be overly helpful 
+•Human agents make mistakes too - 
+often due to not having enough 
+information, or the instructions 
+being unclear 
+Do 
+•Raise any recurring issues internally - 
+track these as bugs and avoid 
+hallucination terminology 
+•Demonstrate Topic Citations in Agent 
+Studio to provide reassurance around 
+safety 
+•Educate on Knowledgebase 
+management
+“why doesn’t it teach itself”
+Would you want a human agent to teach themselves, if they made a mistake? Or would you want to 
+manage their training? Our Agent Studio platform enables you to manage and update all SOPs, just 
+like with a human agent…
+􁷙
+
+Handling Client Objections
+Agent Performance
+Speech Recognition
+“keeps interrupting 
+customers”
+Say 
+• Acknowledge issues that have been 
+raised, and ask for call reviews 
+• Explain about the trade off between 
+latency and interruption 
+• If in UAT, explain that latency will 
+improve due to caching
+Do 
+• Gather data points using manual call 
+review to quantify the issue 
+• If the concerns are valid, ensure that 
+engineering have selected the correct 
+models 
+• Agent Studio enablement in Settings 
+• Highlight strengths in agent recovery
+“not very good at 
+collecting names”
+“pauses are too long”
+Voice is an inherently noisy channel, and while our speech recognition models (developed with NVIDIA) are 
+optimised for this, errors are inevitable. Poor signal quality, background noise, name variations (John vs Jon), and 
+customers pausing all affect both humans and AI. This makes strong recovery essential - through allowing 
+repetition, correction, and other fallback strategies. Our Agent Design team specialises in building these behaviours 
+and can show you how.
+􁷙
+
+Project Management
+tl;dr agent studio and the new onboarding process will make things better…but also set expectations 
+upfront
+
+Handling Client Objections
+Project Management
+Issue Tracking
+“here’s 400 calls we reviewed 
+today, please fix all the issues”
+Resources
+
+Handling Client Objections
+Project Management
+Releases
+“you’re not making 
+changes quick enough”
+Expectation Setting Before Go-Live 
+Accuracy -> Optimisation 
+First we focus on user experience, then we focus on 
+success metrics! 
+Updates Post Go-Live 
+Release Notes!
+
+Handling Client Objections
+Project Management
+But Also…
+Agent Studio 
+And our new customer onboarding process
+
+Success
+tl;dr tie everything to the business objectives and ROI
+
+Handling Client Objections
+Success
+Containment
+“it’s not containing 
+enough calls”
+“that’s not a contained call - 
+nothing valuable happened”
+External: How do you define Containment?* 
+*Especially with past vendors 
+Internal: What does their business case require?
+Ask 
+Accommodate: If customers are refuting abandons as “Contained”, then use a definition of containment that accommodates 
+them but also favours us - e.g. Contained, minus calls less than X seconds* 
+* Unless there is a specific definition we need to match, in accordance with other vendors etc. 
+Upsell: If the use case is just FAQs, it will not get more than 15-20% Containment. Higher containment will be achieved through 
+integrated use cases. Use this as an opportunity to talk about future use cases
+Do 
+
+Handling Client Objections
+Success
+Additional Success Measures
+“here is another arbitrary 
+success measure I’ve created 
+mid-rollout”
+Overall business objectives should be defined upfront, during kick-off. All success 
+metrics should relate to these business objectives, and you can push back carefully by 
+inquiring about this. Sometimes - you may need to accommodate additional success 
+metrics, but this needs to be justified by core business need.
+􁷙
+Questions to Ask 
+External: How does this relate to your high level business objectives? 
+Internal: Does this directly relate to the business case or to their overall ROI?
+
+=== Deployments_Playbook_part01 ===
+Deployments Playbook
+A guide to delivering virtual 
+assistants at PolyAI, for the 
+deployments team
+SECOND EDITION
+V2.0.1  
+3 DEC 2025
+
+V2.0.1  
+3 DEC 2025
+2
+Introduction
+PolyAI builds virtual assistants, usually for voice, that empowers callers to engage with a technology that has a bad 
+reputation. At their best, our assistants are indistinguishable from humans and drastically reduces the need for 
+humans in a contact centre, reserving them for the callers that need empathy and tact. 
+Your job is to deliver these agents, to maximise the quality of them and to be client centric. 
+Your mission as the PSM is to turn this into a reality. 
+You will make our clients feel excited about the work they are doing. You’ll chase ROI for our customers, and even 
+when the measure is blurry, you’ll chase engagement for their callers. 
+This playbook is your guide. 
+Introduction
+Mission
+Our mission is to make everyday customer service feel 
+superhuman, with voice assistants people actually 
+like.
+
+V2.0.1  
+3 DEC 2025
+3
+Introduction
+Introduction
+Document Guide
+This document will use icons and links to take you to further 
+information.
+You can click the link icon to find supplementary information, sample documents and code snippets.
+This icon signals that this page is something that might soon change, for example, the product is evolving. Check with the 
+team.
+
+Project Delivery
+PART ONE
+
+V2.0.1  
+3 DEC 2025
+5
+What We Build
+Project Delivery
+What and How we Build
+Voice Assistants that are Superhuman 
+PolyAI builds voice assistants. A good voice assistant is indistinguishable from a human for most tasks. The voices are 
+respectful, natural, casual and convincing. They don’t sound like robots, adverts, or technology.  
+We do offer text virtual assistants, in chat on the web, via SMS or WhatsApp, or in app. However we build voice first 
+— this is because it’s extremely hard to convert a chatbot to voice, but easier the other way round. Voice has many 
+nuances such as background noise, crosstalk and bad signal. We therefore do not have any major live chat deployments 
+today.
+Voice Assistants that are Revenue Generating and Cost Saving 
+Our mission is not to replace contact centre agents, but to ensure that callers get through to humans only when they 
+require additional empathy, care and tact. Contact centre agents should take the most interesting and complex calls. 
+They also get the chance to work with us on their virtual agent. 
+We also can generate revenue. We are careful about how we measure this, as it’s often a little out of our control. But we 
+measure how many bookings we make, abandons we reduce, and try to link hold time reductions to revenue 
+generation.
+
+V2.0.1  
+3 DEC 2025
+6
+Generative vs Intent Based
+Project Delivery
+What and How we Build
+You should be careful how you talk to clients about this. The exact mechanisms of how we build are not important. PolyAI 
+uses a hybrid system of both proprietary models and large language models, which are used interchangeably based 
+on the customer’s request. Our systems are predictable and custom.
+Generative
+A generative AI system answers questions using a 
+knowledge base that customers can edit 
+Conversational flows can be created in PolyAI’s Agent 
+Studio, again with an LLM at its foundation 
+Complex flows and high sensitivity ones like 
+‘authentication and verification’ flows may be built on 
+PolyAI’s prescriptive NLU model and policy framework by 
+PolyAI engineers, but generally not.
+PolyAI takes a user input and maps it 
+to an ‘intent’. The system has 
+prescribed behaviour, so takes a 
+defined action based on that intent, 
+which might be reading out an FAQ, 
+or proceeding through a flow 
+The answers the virtual agent gives 
+are pre-written and fixed
+Intent Based
+
+V2.0.1  
+3 DEC 2025
+7
+We Build on a Generative AI Platform, called Agent Studio 
+Agent Studio is our platform and control panel for virtual assistants. It contains the knowledge base, flow design, voice 
+generation, analytics, conversation review and more. Each of these different items can be enabled on a per-client basis.
+How We Build
+Project Delivery
+What and How we Build
+Our platform has… 
+A configurable Large Language Model, which may be GPT, hosted on Azure AI, or our in-house LLM, known as Raven. 
+We choose which to use on a per use case basis. Regardless, many client’s will understand this as the PolyAI LLM. 
+A PolyAI Speech Recognition System. Designed and trained in house, this translates audio of human speech into text, 
+which gets sent to the LLM. It’s based on a base model from NVIDIA, who have invested in us, and we build on top of it. 
+A lifelike hybrid Text to Speech model. We offer samples to our clients that might be a mix of a PolyAI trained voice, 
+based on an actor that we work closely with, off the shelf voices, or live recordings. Our client’s don’t pick, they trust us 
+to use the best hybrid of all three options.
+
+V2.0.1  
+3 DEC 2025
+8
+Who Builds
+Project Delivery
+What and How we Build
+The Deployment Team is a subset of Team Y, a.k.a. The Project 
+Team or the PS Org 
+It contains Agent Designers, Product Solutions Managers and the 
+Support team. 
+Product Solutions Managers are the primary client contact for the build 
+of a virtual agent. They own the timeline and the project plans. They 
+build and manage dashboards, analytics, and success rates. They make 
+the client feel good about what they’ve purchased. 
+Agent Designers script the agent and prompt the LLM. They are 
+responsible for the quality of the agent and making it as lifelike as 
+possible. They own relationships with the voice actors and produce 
+deep analytics. 
+The Support team manage our service desk, where live and running 
+clients submit fault requests.
+team y
+deployments
+PSMs
+agent  
+designers
+build  
+virtual  
+agents
+engineers
+eddy’s 
+team
+Support
+
+V2.0.1  
+3 DEC 2025
+9
+Who Builds
+Project Delivery
+What and How we Build
+Team Y, the wider Project Team, operates in ‘pods’ 
+Pods contain scrum masters and engineers, who report into Eddy’s org, agent designers, PSMs and a CSM. 
+New projects and clients are assigned to the pods. 
+The pod makeups may change, but at time of writing are: 
+Bao, primarily based in the UK and responsible largely for FedEx 
+Sourdough, primarily based in the UK and responsible for many European clients 
+Somun, primarily Serbian engineers but responsible for US projects due to EU/UK data transfer rules 
+Focaccia, based in the UK with global projects 
+Bagel, based in the US and responsible for US projects and many casino projects 
+Paratha, based in both the UK and the US, and responsible for global projects 
+Crouton, based in west coast US, and responsible for PG&E and CLI
+
+V2.0.1  
+3 DEC 2025
+10
+Deployment Process
+Project Delivery
+Deployment Process
+This section will run through how to run a project, step by step, 
+using a master diagram. You can view the large diagram by clicking 
+below, or follow the process through the next few pages.
+
+V2.0.1  
+3 DEC 2025
+11
+Deployment Process: Handovers
+Project Delivery
+Deployment Process
+Sales to Delivery Handoff 
+This meeting is booked by the AE within 5-10 days of signature. At this point, a PSM is 
+assigned to attend the meeting. Department heads will also join. This meeting has a 
+structured slide deck. PSM’s should ensure they know: 
+• Who the main points of contact are 
+• The scope, in detail, including integrations, parts that are missing, etc 
+• Expected timelines 
+• The commercial structure, ramp period, opt outs, etc
+The External Kickoff Meeting 
+This meeting is booked by the PSM after the AE sends an introduction email. Usually, a 
+client will invite all stakeholders to this meeting, as they expect to know who is 
+responsible for each step of the process. 
+Details on how to run this meeting are found on page 28.
+
+V2.0.1  
+3 DEC 2025
+12
+Deployment Process: Scope (
+Project Delivery
+Deployment Process
+Scope Run Through 
+After kickoff, you should validate the scope of the virtual agent with the client. 
+Often, the contracted scope will have nuances that will change. We want to be 
+easy to work with, so some changes should be accepted for free. 
+For this meeting you should: 
+• Be extremely familiar with the flow in the order form. A detail oriented PSM may 
+re-create the diagram in a more client friendly way, slightly simplified. 
+• Not allow the client to leave too much in the open, you want answers, and if the 
+client cannot answer them, this may delay build 
+• Be able to add sample API requests and responses, and after the meeting 
+validate all of them in the diagram 
+• Get final written sign off over email that the scope is final. 
+This is a technical call and you should feel confident that what you create on 
+paper can go to our engineering team, and be understood.
+
+V2.0.1  
+3 DEC 2025
+13
+Deployment Process: Scope (
+Project Delivery
+Deployment Process
+Major Scope Changes 
+There may be instances where clients want to change the scope substantially. If 
+the change would require any timeline change, or significantly more effort, there 
+are two options. 
+1.
+With the CSM, draft a Scope Change Email        , outlining the change. This is a 
+formal scope change that the client must confirm. It may come at extra cost, 
+but this is optional. It may also invalidate opt-out, or cause a timeline 
+extension. Because of this, you should also check with legal before sending. 
+2. Escalate through the AE. If the scope of the project is entirely different to 
+what was contracted, the project needs to be transferred back to the 
+solutions consultant team, through the AE. Send a message on the 
+commercial slack channel, and organise a meeting with relevant team 
+members and your line manager.
+
+V2.0.1  
+3 DEC 2025
+14
+Deployment Process: Tech Kickoff
+Project Delivery
+Deployment Process
+Project Setup Checklist, For the PSM 
+• Create a Notion project page in the projects database. Use the template 
+• Input contracted milestone dates into the Notion 
+• Place links to all discovery and contractual information into the Notion 
+• Create a folder for Smartsheet items in the Project Timelines workspace 
+• Work with the scrum master to set up a Jira board and workflow 
+• Create _tech and _telephony slack channels 
+Compliance 
+It is possible there will be surprises for our compliance team, especially if the project collects PII (Personal 
+Identifiable Information) or PHI (Personal Healthcare Information). It is often good to check with our compliance 
+team, especially if it’s a new industry or use case 
+Internal Tech Kickoff 
+By this point, a pod should be fully assigned, and the PSM organises an internal tech kickoff where they run 
+through the agreed scope, and agreeing milestone dates. At this point, the engineering lead should begin 
+planning how long each action might take, and working backwards from the contracted go live date.
+
+V2.0.1  
+3 DEC 2025
+15
+Deployment Process: Timeline
+Project Delivery
+Deployment Process
+Create the Client Facing Timeline 
+You will create a client facing timeline, and get sign off from engineering. There is a template available in Smartsheet       to use 
+as a basis. It is important that this is up to date, day by day, and used to show the client when and how we are on track. The 
+most effective way to hold a client to account is to assign then actions on this timeline.  
+You should add line items for every detailed action. You can use the lucid chart for this section of the playbook to help map out 
+each line item. Be aware you should be able to explain them. 
+Work with the lead engineer in the pod on the dates.
+Using Smartsheet 
+Smartsheet can be tricky to use. However, as these are client 
+facing it is imperative that they are clean, tidy, and 
+professional. You will want to use this to hold clients to 
+account, and if they are untidy or confusing, they will not be 
+taken seriously. 
+Use the table view to enter dates, and then visualise it in the 
+Gantt view afterwards. Do not set dependencies until you have 
+finished setting dates, however do use the dependency feature to 
+demonstrate to clients the cascading effect of them being late. 
+Keep the status up to date at all times. 
+Use the Smartsheet help guides.
+
+V2.0.1  
+3 DEC 2025
+16
+Deployment Process: Building (
+Project Delivery
+Deployment Process
+Client Meetings 
+We run weekly meetings with the client, often more, to keep them up to date with 
+progress. In these meetings you will show the action tracker, the timeline and report 
+progress. You will play voice samples to the client and coach them into picking the 
+right one. Work closely with the Agent Designer to pick the right voice. 
+ 
+We don’t usually ask for preferences, rather send voices that we think would work for 
+the agent, and then take feedback. 
+It’s also often wise to get an early recording of the real system mid-development to 
+show progress. 
+More guides on how to run such daily meetings can be found on page X.
+
+V2.0.1  
+3 DEC 2025
+17
+Deployment Process: Building (
+Project Delivery
+Deployment Process
+Telephony Integration and Interoperability document 
+Your telephony engineer will own this document, however check in frequently to 
+ensure it is up to date, and that the client is also following their deliverables on time. It 
+is very easy for the deliverables in this document to slip. 
+Providing voice samples 
+Your Agent Designer will generate samples. Listen to them first, and make sure they 
+are perfect. It’s a little tedious to generate samples so don’t be afraid to push back if 
+you find the voice strange. 
+You should provide no more than three samples to the client upfront, and play them 
+on a call (there is a template here       ). The more you provide up front, the more limited 
+the options if they don’t like any. 
+You should always include ‘PolyVoices’ in the samples. These are voices where we own 
+the relationship with the voice actor and so can get live recordings later for unusual 
+pronunciations, or to maximise agent voice quality. Our clients have been sold 
+superhuman assistants, so PolyVoices give us the most flexibility.
+
+V2.0.1  
+3 DEC 2025
+18
+Deployment Process: Building (
+Project Delivery
+Deployment Process
+Keeping Close to the Engineering Team 
+WAs a PSM, the engineering team are ultimately waiting on your guidance and 
+timelines. Projects will not move at the pace required unless you are close to the day to 
+day. You must: 
+• Be deeply familiar with the bot and it’s behaviour. Clients will ask you about it, and 
+you should be able to answer forcefully and confidently. The bot’s design is as much 
+yours as it is the team’s. 
+• Attend scrum to be aware of day to day deliverables 
+• Be present in the tech channel, if you are not seeing progress, there may not be 
+progress. Nobody wants to micromanage, but you must be confident and having the 
+team report progress. Delays, poor agent quality and client frustration will come if 
+you cannot justify it.
+
+V2.0.1  
+3 DEC 2025
+19
+Deployment Process: Metrics
+Project Delivery
+Deployment Process
+Defining Metrics 
+The PSM is responsible for defining the metrics required in the project. There are some standard metrics which must be 
+followed and you should check that these are implemented correctly. 
+Metrics are ‘checkpoints’ in a conversation. When a caller hits a point in a conversation, a metric will be written. It could be 
+something simple like ‘BOOKING_INITIATED’ which is a single event. Or it could contain data, for example ‘QA’ which signals a 
+question was asked but will have a value such as ‘PARKING’, the name of the FAQ. 
+Detail on standardised metrics can be found on Notion.        However, there is also a new effort to improve it, which will be 
+documented soon. 
+The Consequences of Incorrect Metrics 
+Metrics are how we measure business cases, and more, with our clients. Getting it wrong can create huge problems and require 
+time consuming backfilling and extended manual call listening.  
+You should extensively QA that metrics are being written. QA documents must have an ‘expected metrics’ column, and you must 
+validate these on every test call.
+
+V2.0.1  
+3 DEC 2025
+20
+Deployment Process: QA and Review
+Project Delivery
+Deployment Process
+Setting Up QA 
+The Agent Designer will create the initial QA sheet. This should be detailed 
+and it should be considered client facing because the UAT sheet will be built 
+from it. 
+It should cover every reasonable scenario, including: 
+• Happy paths 
+• API integrations, that should be mocked if not possible early in QA 
+• Unhappy paths and failures 
+• Standard behaviour such as ‘speak to’ and ‘who are you’ 
+• That all metrics are being written correctly 
+There is a template available in Agent Design Notion. A good model to check 
+is that of Pradco / Moultrie Mobile.
+Be Ready for Implementation Review 
+The implementation review board is a new process that will check the agent 
+quality / completeness of QA / metrics and more. See page X for more 
+detail. If the project is rejected at this stage, it may result in delaying UAT.
+
+=== Deployments_Playbook_part02 ===
+V2.0.1  
+3 DEC 2025
+21
+Deployment Process: UAT (
+Project Delivery
+Deployment Process
+Before UAT 
+Remember, the client is not here to do QA. Be ready, expect 100% 
+pass rate from the team and expect no less. Prepare the QA sheet 
+for client facing, with scoring using the below criteria. It is your 
+responsibility to make the internal QA sheet client-friendly for UAT. 
+See an example here.  
+UAT Kickoff 
+Use the UAT slide template to explain the difference between 
+functional and behavioural testing and plan testing. Reassure the 
+client some things won’t work but that’s normal. You’ll be making 
+many changes over the period to improve the system. We’ll listen 
+to every call but priorities the bad CX fails. 
+
+V2.0.1  
+3 DEC 2025
+22
+Deployment Process: UAT (
+Project Delivery
+Deployment Process
+During UAT 
+Keep the testing sheet open. Check in frequently and ensure the 
+Agent Designer and engineer are live commenting on test cases 
+and listening to calls. You can use PolyAI ticket numbers to 
+reference issues. You can also prioritise them in real time. 
+There is more advice on how to run the day to day of UAT on page 
+X.
+The end of UAT 
+If you have provided good release notes, active check-ins and explained issues, as well as managed a bug tracker, you will likely have an easy time 
+getting a client to agree UAT is passed, or at least that remaining issues are not go live critical. Use the bug tracker format to prioritise, 
+demonstrating progress. 
+If you are struggling, try and set a go live 1-2 weeks out. Book daily meetings to rally the client into going live, and plant the suggested date as 
+immovable. If you invite third party vendors, and the people you are relying on to go live, it will create pressure on individuals to hit that go live 
+date.
+
+V2.0.1  
+3 DEC 2025
+23
+Deployment Process: UAT (
+Project Delivery
+Deployment Process
+Dashboards 
+During UAT, you should monitor that metrics are being written 
+correctly, and added to Luzmo. You might need to ask the 
+engineers to ensure metrics are added to Luzmo. 
+Advice on building dashboards can be found on page X.
+
+V2.0.1  
+3 DEC 2025
+24
+Deployment Process: Pre-Go Live
+Project Delivery
+Deployment Process
+Once the client says ‘Go’ 
+The engineering team will run an HLD meeting. The PSM is optional, but this is a critical 
+internal governance step. Be sure an engineer has written the HLD document in advance of 
+this meeting. 
+It is important to then test the live APIs. This may require setting up a call with the customer 
+to to an end-to-end production test. You should be sure live APIs work before going live. 
+Give Access to Dashboards 
+1.
+Ask the client for a list of emails who will need access to dashboards 
+2. Post the list of emails and the region in #studio_portal_access_request channel and email 
+the same list to user-access@poly-ai.com. Wait for positive acknowledgement. 
+3. Add the user to Agent Studio. 
+All clients are added to jupiter.polyai.app / jupiter.uk-1.polyai.app, regardless of their project 
+setup. Give them access to custom analytics only on day one. No client should be given 
+access to platform.polyai.app.
+Give Access to Statuspage 
+Instructions are found here
+
+V2.0.1  
+3 DEC 2025
+25
+Deployment Process: Go Live
+Project Delivery
+Deployment Process
+Daily Hypercare meetings 
+Agree you will run daily meetings for 1 or 2 weeks as soon as possible. The sooner you plant the seed 
+about the duration of this process, the more likely it is to stick. Otherwise, they may extend it forever. In 
+these meetings you should: 
+• Show and add to a bug tracker 
+• Send release notes to the clients for every push to live — if you are doing work show it off 
+• Use the dashboard to show KPIs 
+• Play live calls, including good and bad ones. Pick calls that aren’t catastrophic but show out of scope 
+topics or issues you know can be resolved, this helps build trust
+Go Live Email 
+You must send an email to the client’s main stakeholders, cc Nathan and legal, and confirm go live.
+Post in #general in Slack 
+Celebrate the team with details of the project, a call recording and more in the #general channel in Slack.
+The Bridge Call 
+To go live, you should join a longer (2 hour) call with the client to pull the trigger and monitor live calls. This 
+is important as you want to be the one to play the first good and the first bad call. If you own and lead 
+this meeting, championing how good the bot is, and mapping improvements onto the bug tracker, you 
+own the narrative. Think of it as an initial hypercare meeting.
+
+V2.0.1  
+3 DEC 2025
+26
+Deployment Process: Shifting to BAU
+Project Delivery
+Deployment Process
+CSM Increasing their Role 
+As the system is now build, the CSM will increase their role, leading more meetings. They should 
+have been present throughout the build, but now will take an active role in ensuring the 
+customer is fully enabled for BAU, and is confident about their ROI. 
+Criteria to Exit Hypercare 
+This criteria is in the kickoff deck, and should be adhered to. 
+Support 
+For detailed information on the support process, you should look at the support playbook. 
+       For smaller accounts, we are implementing a credit system, reflected in the diagram. 
+Requests for changes will use a credit allowance. This is managed by the CSM and support. 
+
+V2.0.1  
+3 DEC 2025
+27
+Deployment Process: Shifting to BAU
+Project Delivery
+Deployment Process
+QBR/MBR 
+For clients who are larger, there will be a monthly recap meeting set up by the CSM. 
+The CSM and PSM work together to collate the releases from the past month, metrics, 
+and suggested improvements. 
+Please see CS guidance on how to lead these meetings. 
+Upsell / Renewal Procedure 
+Docs coming soon. 
+
+V2.0.1  
+3 DEC 2025
+28
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+The next slides will run through how to run a project kickoff. This 
+is the PSM’s first meeting with the client.
+The introduction slide is straightforward. 
+The PSM is the main contact for the deployment, and the client should reach 
+out to you primarily. That avoids miscommunication. It’s also a good time to get 
+a single point of contact from the client. 
+You’ll want to introduce anyone else on the call in addition to the concept of a 
+Agent Designer and a customer success manager — there for long term 
+support. 
+You must change this slide depending on the project. Some will not have a 
+CSM, so you can remove that. 
+
+V2.0.1  
+3 DEC 2025
+29
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+You should walk through a very high level view of what 
+the agent will do. What is it meant to do from a high level 
+— deflect calls from a contact centre or resolve a call 
+type? 
+Read the order form before the meeting and be 
+confident in what the customer is looking to do. 
+There will be a more detailed scope run through, so no 
+need to dwell on this for long.
+
+=== Deployments_Playbook_part03 ===
+V2.0.1  
+3 DEC 2025
+30
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+The build process is four stages and you’ll walk through 
+them one by one. 
+Starting with design, you can describe this as when we 
+finalise the customer experience of the agent. Our 
+designers will consume the FAQ information provided 
+and make the agent come to life. 
+We’ll run through the flows, kickoff telephony integration 
+and the client will get to choose their voice. 
+This is also the final opportunity to make any changes to 
+what you want to build before we hand over to 
+engineering. 
+
+V2.0.1  
+3 DEC 2025
+31
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+We often describe the ‘build’ stage as a quieter stage 
+where the PolyAI team are ‘heads down’.  
+We’ll still want the client to support on weekly meetings 
+and to motivate their telephony supplier. 
+It’s good to explain how we’ll still fill this period by 
+introducing the client to: 
+• how to interpret dashboards 
+• how to talk about our agents with contact centre staff 
+• talk about design methodology 
+• introduce them to self serve tools 
+• introduce the BAU support process. 
+       All of these are coming in new decks in collaboration 
+with CS soon, but even though we don’t yet have 
+content, you should cover off these topics in this period. 
+
+V2.0.1  
+3 DEC 2025
+32
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+We like to describe UAT as where the fun starts. This is what most of our clients enjoy, getting to experience the PolyAI virtual agents for the 
+first time. For this section of the deck, read through the deliverables and explain we’ll be making updates nearly daily and will be really high 
+touch. 
+You can describe how we’ll provide a comprehensive test plan to ensure the agent launches well, as well as a guide for contact centre staff, 
+which is the UAT kickoff guide described later.  
+
+V2.0.1  
+3 DEC 2025
+33
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+It’s good to give a brief overview of what to 
+expect on go live day. 
+This slide includes four examples of how we 
+might roll out. Ultimately, we want more calls as 
+quickly as possible, so build confidence with the 
+client so that they agree ideally to numbers 1 or 2 
+on this list. 
+Familiarise yourself with projects that launched in 
+these ways.
+
+=== Deployments_Playbook_part04 ===
+V2.0.1  
+3 DEC 2025
+34
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+It’s important to highlight that we are still closely 
+involved post launch. For hypercare, a usually two 
+week period, we’ll have daily catchup calls. We’ll 
+journey map by playing real calls. 
+Nathan likes to make a joke here: we’ll play you 
+great calls and also the really really terrible ones, 
+because there will be one upset person, and we 
+should learn from it. 
+This helps set expectations. 
+Hypercare is not infinite, describe it as two 
+weeks. There are criteria listed on the slide for 
+how to pass hypercare. During hypercare, which 
+is described on slide X, you should follow this 
+checklist. 
+Try not to describe this as the ‘end’, it’s when we 
+decide to move on to the next phase. 
+
+V2.0.1  
+3 DEC 2025
+35
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+Make sure the client knows that we are going to 
+project manage for them. 
+We’ll provide a detailed gantt chart which is a live 
+website they can follow. 
+This will come later in the process, towards the 
+end of the design phase.
+
+=== Deployments_Playbook_part05 ===
+V2.0.1  
+3 DEC 2025
+36
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+In the mean time, to comfort the client, provide some 
+generic milestone dates. 
+This is your chance again to reset expectations. Set the 
+go live for something probably a tiny bit longer than they 
+expect, and that way you can move it forward on 
+request. 
+
+V2.0.1  
+3 DEC 2025
+37
+In Depth: The Kickoff Meeting
+Project Delivery
+The Kickoff Meeting
+The first shows how we will report data. There will be 
+dashboards, usually updating every few hours which will 
+be where you’ll spend most of your time monitoring 
+performance. You can export as an Excel, CSV, or 
+however you like. 
+Make sure they know we also have an API so you can 
+import the data into your existing tools like PowerBI or 
+Tableau. This usually gets a positive reaction. 
+There are two slides to talk about reporting. 
+The second slide is either the contractual or proposed 
+success criteria. 
+Get alignment on this — this is what the contract says, 
+this is the definition. Does everyone understand it? 
+You’ll later add this to the dashboards. 
+
+V2.0.1  
+3 DEC 2025
+38
+In Depth: Scope Run Through
+Project Delivery
+Scope Run Through
+Coming Soon
+The scope run through is usually the second meeting you’ll have 
+with the client. You’ll talk through either how to provide PolyAI 
+FAQ information, or go step by step through the flows. This is 
+difficult, technical, and involved.
+
+V2.0.1  
+3 DEC 2025
+39
+In Depth: Implementation Review Board (
+Project Delivery
+IRBo
+In order to maintain project quality, before going into UAT, there will be an ‘implementation review board’ meeting. In this 
+meeting, held at least 7 days before the planned client UAT kickoff, a set of requirements will be presented to the most senior 
+engineer, Agent Designer and PSM in the team. As of Feb 2025, these are Eddy, Arkadiusz and Nathan. 
+The meeting agenda is as follows: 
+1. Brief overview of project functionality 
+2. Walk through completed QA sheet 
+3. Show metrics configuration 
+4. Run through checklists 
+5. Approval by Eddy, Nathan, and Arkadiusz 
+The outcome of the meeting will be one of three things: 
+Approved - The project can proceed to UAT on time 
+Approved with Conditions - The project can proceed to UAT on time provided that a set of conditions are met asynchronously, 
+before the UAT Starts 
+Rejected - The project cannot proceed to UAT and the Implementation Review Board must be run again. 
+
+V2.0.1  
+3 DEC 2025
+40
+In Depth: Implementation Review Board (
+Project Delivery
+IRBo
+The checklists that require completion are in Notion. Use the template to create a new Notion 
+page to prepare for the meeting. 
+The checklists are split into three categories. 
+QA 
+Containing evidence that QA was completed to a high standard and all aspects of the virtual agent 
+were tested. Includes some specific frequent points of failure. Also includes evidence of metrics 
+being fully and properly implemented to given standards 
+Project Behaviour Standards 
+A list of behaviours that are expected to be present in all virtual agents. All standard project 
+behaviours should be tested as part of QA 
+Logistical / Process 
+A list of process requirements that should be complete by the time the board is met, including 
+creating the UAT contents and ensuring metrics are in Luzmo. 
+
+V2.0.1  
+3 DEC 2025
+41
+In Depth: The UAT Client Kickoff
+Project Delivery
+UAT Client Kickof
+This is how you introduce UAT. You’ll be setting expectations 
+here, so explaining this well is critical.
+The first slide of the UAT kickoff deck contains 
+the test phone number. 
+It also sets expectations on a few common 
+misconceptions about UAT. It won’t be perfect. 
+The voice may change or be generated for the 
+first time causing latency. And handoffs are 
+usually disabled in UAT. 
+On this slide, you should also add if the agent is 
+using sandbox APIs.
+
+=== Deployments_Playbook_part06 ===
+V2.0.1  
+3 DEC 2025
+42
+In Depth: The UAT Client Kickoff
+Project Delivery
+UAT Client Kickof
+It is extremely common for clients to misunderstand 
+UAT and cause us significant problems. 
+Therefore it is very important that you familiarise 
+yourself with and understand the different types 
+of testing, and the client should do. 
+We want to be very distinct and serious about the 
+difference between functional testing, which will use 
+our prescriptive UAT sheet, and edge case testing, 
+which is when a client tests in a less structured way. 
+You should explain that functional tests are the test 
+cases we give you that are scripted and should 
+work every time. After they are complete, then the 
+team can do edge case testing, which is their own 
+exploration.
+
+=== Deployments_Playbook_part07 ===
+V2.0.1  
+3 DEC 2025
+43
+In Depth: The UAT Client Kickoff
+Project Delivery
+UAT Client Kickof
+We use a scoring system for functional testing. 
+After this deck is complete, you will walk the client through the testing sheet. See 
+pages 20-22 for more details. 
+You should also talk through the scoring system and make sure they understand it. 
+If the client understands this, and accepts we can go live provided all test cases are in 
+the top three scores, you will have a much easier time convincing them to launch.
+
+=== Deployments_Playbook_part08 ===
+V2.0.1  
+3 DEC 2025
+44
+In Depth: The UAT Client Kickoff
+Project Delivery
+UAT Client Kickof
+Finally, use the final slide in the template to create some conversation scripts to 
+explain how to test. You can show that you can slightly go off topic, or avoid 
+loops. 
+You might also like to play a few live calls or make a live test call together. 
+Following this, walk through the actual UAT sheet. Use the example on page 21. 
+
+V2.0.1  
+3 DEC 2025
+45
+In Depth: UAT Day to Day
+Project Delivery
+UAT
+Coming Soon
+
+V2.0.1  
+3 DEC 2025
+46
+In Depth: Release Log
+Project Delivery
+Release Log
+When we push to live, we must update a release log. This is a compliance requirement, 
+adds professionalisation, and is good defence against a client. This must always be 
+updated. It is owned by the PSM for build and hypercare, and then can be transitioned 
+to CS or the scrum master. 
+The release log template        table includes a release date, a deployment owner, a version 
+number and a list of changes. They are stored in a shared Google Drive. These should: 
+• Be in readable english and generally non-technical 
+• Include ticket numbers, including the support desk external ticket number where 
+relevant 
+• Have evidence of QA 
+There is a separate box for QA, which is our evidence to a client that we have done due 
+diligence and tested the virtual agent. It is acceptable to put minor known issues in here. 
+An internal QA doc can be included that the PSM can later refer to as evidence. 
+Regardless of the size of the push, a release log must be added. There is a Google Docs 
+shortcut, just type @Release Log to auto-insert the table. 
+To share this with a client, either share the live Google Doc or export as a PDF and send 
+periodically. 
+
+V2.0.1  
+3 DEC 2025
+47
+Day to Day Team Meetings and Activities
+Project Delivery
+What and How we Build
+Coming Soon
+
+V2.0.1  
+3 DEC 2025
+48
+In Depth: Dashboards | KPIs Dash
+Project Delivery
+What and How we Build
+Good analytics dashboards are vital to your projects being a success. 
+There is no compromise in the detail and professionalism. This section 
+will highlight the minimum things to look out for when creating a 
+dashboard, based on the Fogo de Chao dashboard.
+Neat, symmetrical, layout 
+The most important 
+success rates  for the 
+client are at the top
+Color palette matches the 
+client’s brand standard
+Trends are useful, 
+weekly for overall 
+success and daily for 
+‘at the moment’ check-
+ins. The top graph 
+could also be hourly.
+
+=== Deployments_Playbook_part09 ===
+V2.0.1  
+3 DEC 2025
+49
+In Depth: Dashboards | KPIs Dash
+Project Delivery
+What and How we Build
+Easy to understand, 
+grouped categories of 
+call reasons. These 
+aren’t raw metrics, but 
+understandable, 
+natural english 
+categories
+Most important to 
+every client is knowing 
+how to get better. This 
+pie chart shows it
+Containment is 
+measured per-topic
+
+V2.0.1  
+3 DEC 2025
+50
+In Depth: Dashboards | Raw Call Log
+Project Delivery
+What and How we Build
+Filters to highlight 
+specific calls for 
+deeper analysis
+The raw call log is a vital dashboard to see detail, per call 
+information. It’s a simple table to make.
+Dashboard set to link 
+directly to 
+conversations review
+Virtually every 
+important metric is in 
+this table (hidden)
+
+V2.0.1  
+3 DEC 2025
+51
+In Depth: Dashboards | Industry Specific
+Project Delivery
+What and How we Build
+Many clients will have very specific requirements or industry specific 
+data. Create a different dashboard for this. 
+Restaurant excess demand dashboards show 
+where PolyAI is turning customers away because 
+there is no availability
+
+V2.0.1  
+3 DEC 2025
+52
+Going on Holiday
+Project Delivery
+What and How we Build
+When you go on PTO, it is vital to create a good handover document so 
+that your cover knows exactly what to deliver.
+Never book holiday over a UAT or go live period. As you have a timeline in smart sheet and a go live date range, you know 
+when not to book holiday.
+When taking PTO: 
+• Create a Notion page 
+• List all your projects 
+• List deliverables that must be complete at the end of your holiday, in detail, 
+including the tools that another PSM will need to be able to complete that task 
+• List the main contacts for each project 
+• Invite your cover to scheduled meetings 
+• Send an email to the client to introduce them to your cover
+
+Managing Clients
+PART TWO
+
+V2.0.1  
+3 DEC 2025
+54
+Dealing with Objections
+Managing Clients
+Intro
+Something a client might say
+A good way to approach the answer
+Some additional notes to help you manage an objection
+This section will run through how two manage common questions and 
+objections that happen during the build process and beyond.
+
+V2.0.1  
+3 DEC 2025
+55
+Early Project Objections: Scope
+Can I review the design of a virtual agent before you build it?
+Yes, we’ll have a scope meeting to run through the flow logic. We’ll also be able to share the knowledge base the 
+virtual agent is using to answer the caller. Please share your brand guidelines to help us, but we’ll take the first shot 
+as our team must get the foundation working first.
+How many FAQs can I have?
+There is no hard limit on the amount of topics. And each topic will be able to answer many different questions, 
+depending on how a caller asks it. However, to start we recommend no more than 50, to prevent overlap. We’ll then 
+track all of the out of scope customer requests and decide which more to add.
+Why should I pay / take on risk to send SMS?
+Directing a customer to another channel through SMS is a very effective way of gracefully deflecting customers. In 
+one project with over 30% total containment, calls where an SMS is sent are contained over 85% of the time. This 
+goes for integrations too — when PolyAI does something for a customer, they have a better experience.
+Managing Clients
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+56
+Early Project Objections: Scope
+Can I start with a small number of FAQs and add more later?
+Yes, but it’s important we know a broad range of things a caller might be asking about so we can deal with it 
+properly. Do you have data on how many times questions are asked, so we can prioritise by volume?
+Managing Clients
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+57
+Early Project Objections: Voice
+Can I use my own voice actor?
+We have a large selection of voices to choose from. Some of these are our own PolyVoices, which you won’t find 
+anywhere else and are trained on our own data and voice actors. Others are ‘off the shelf’ voices. To train new 
+voices, we pay significant license fees, and conduct studio recording. We aren’t quite in the position to clone any 
+voice at the moment. If you are unsure, pick a PolyVoice.
+Managing Clients
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+58
+Early Project Objections: Metrics
+Managing Clients
+Can I measure customer satisfaction / CSAT?
+Yes, there are a few options.  
+1. We can do a voice survey, but on contained calls only, because we don’t want to put a survey before the 
+customer is transferred to a human, that’s annoying. These results will appear in PolyAI dashboards. 
+2. You can provide us a survey link and we can send it via SMS on the end of every call. These results will appear on 
+your end. 
+Generally, we advise CSAT questions ask specifically about the ‘virtual agent’ as in our experience customers tend 
+to use surveys to complain about anything, not just the virtual agent.  
+If setting this up is going to take time, we can use other proxies for CSAT like call length and containment for the 
+specific flows.
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+59
+Early Project Objections: Content
+Managing Clients
+I want the agent to introduce itself as a virtual assistant.
+We tend to suggest not doing this. People generally don’t like voice assistants, and we need to have one chance to 
+build some trust with the caller without them knowing. If a caller asks, of course we’ll tell them we are a virtual 
+agent but we see about a 25% uplift in containment when we don’t declare we are AI. We don’t want to fool anyone 
+into thinking they are talking to a human, we want them to forget that they aren’t.
+I’m worried about customer experience so I want to change this FAQ so it transfers more easily
+Yes, we can do this. We will warn you that we find when you offer a transfer, the customer nearly always says yes. 
+Of course, particularly unhappy customers or vulnerable ones will always get transferred. 
+Note: use discretion. Are we meant to contain this call topic or is it completely out of scope? Usually common sense 
+will tell you when to say yes or no to this.
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+60
+Early Project Objections: Content
+Managing Clients
+Can I use the bot to market my brand? / I want to use this slogan in this FAQ response
+We’re happy to help with that, we think that engaging customers is most important so don’t want to put any off-
+putting marketing, or anything that sounds like it a robot. We want customers to pay attention and have a natural 
+conversation, so usually avoid it. How do you tell your contact centre staff to promote things, do they say the 
+same? If not, the bot shouldn’t.
+How are you going to deal with vulnerable customers, I want to transfer them.
+We can detect vulnerable callers through keywords and the topic of the call to transfer them quickly. Can you give 
+us what topics you want immediately transferred? We can test them in UAT
+Early Delivery Objections
+
+V2.0.1  
+3 DEC 2025
+61
+Early Project Objections: Call Listening
+Managing Clients
+Early Delivery Objections
+Can I listen to calls?
+Yes. After go live, we’ll have daily catch up calls and we will play you both the best and the worst calls so we can do 
+journey mapping. Then we’ll give you an API and platform so you can pull the audio yourself, and also mark calls for 
+re-training.
+Note: We should be careful here. We do allow customers to listen to calls, however the perception of PolyAI can 
+change. Especially when we move on to other projects, customers may feel their agent is degrading. Make sure 
+when you introduce call listening, you do on a screen share, and have a session to consult them on how to listen 
+productively and find both good and bad calls. Getting this wrong will make your work harder.
+
+V2.0.1  
+3 DEC 2025
+62
+UAT / Live Call Objections: Quality of Recognition
+Managing Clients
+It won’t understand me / every time I say X it doesn’t work
+We’ll look at all the calls, let’s look together. I’ll add it to the issue tracker. This is why it wasn’t understood…
+The best way to handle objections during UAT is to fix it. The client will come across things that aren’t understood, 
+but you know they can be fixed fast. It’s also good to explain why: look, we were missing this word from the training 
+data, for example.
+It doesn’t work with background noise
+We’ll adjust the latency threshold. Sometimes it’s a fine balance as if we make it less sensitive to background noise, 
+the agent might interrupt people. We’ve got everything set to the default, we’ll adjust from there when we go live/
+UAT / Live Calls
+
+V2.0.1  
+3 DEC 2025
+63
+UAT / Live Call Objections: Voice
+Managing Clients
+UAT / Live Calls
+The latency is bad, there are long pauses
+We’ll make some adjustments. There is a trade off here, the shorter we make the latency the more likely it’ll 
+interrupt. I wouldn’t worry too much at this stage, we’ll tweak and over time you’ll see it improving.
+Note: The engineering team have a few steps to take here. You should not accept anything more than 3 seconds at 
+an absolute maximum. You should make sure the engineering are not overriding VAD, that they have used the 
+latency graph generator to see if there are low hanging fruit, and also that they have delay responses such as ‘one 
+second’ and ‘umm’ and ‘i’m just looking that up’ enabled. Don’t take no for an answer!
+Why can’t I interrupt the virtual assistant or barge in?
+We have this feature, we be learned that agents perform much better when it’s turned off. This is because 
+sometimes a customer will interrupt and miss and important part of the agent’s speech, or a question the virtual 
+agent needs to ask. We’re working on improving it, and will let you know.
+
+V2.0.1  
+3 DEC 2025
+64
+UAT / Live Call Objections: Metrics
+Does containment include people hanging up? How do I know they are good calls?
+Yes, containment is our true, unadulterated future that shows simply how many people are not transferred to an 
+agent. Let’s create a success measure ourselves that removes callers who don’t interact, short calls, and more.
+Note: Often, the contract will contain a defined success criteria. You should make sure dashboards show that 
+criteria beside containment. However, be careful about creating criteria we can’t control. For example, a booking 
+success rate should not include cases where there is no availability or we are not permitted to make the booking in 
+the denominator.
+The dashboard doesn’t match our figures?
+The dashboard is sometimes delayed a small amount, I’ll look into that. What time range and time zone are you 
+setting on the dashboard?
+Note: You may need to reset Luzmo warp. Next, check the time zone on the dashboard. Ask the client to give you 
+their data to compare.
+Managing Clients
+UAT / Live Calls
+
+V2.0.1  
+3 DEC 2025
+65
+Internally Escalating
+Managing Clients
+Escalating Internally
+There are many slack channels for escalating questions 
+Sometimes you or an engineer might meet the end of the road in solving a client problem. Look to the right team to 
+help. 
+#psms-internal, to chat to just the PSMs 
+#ask-agent-studio, for questions or problems with the Agent Studio web app 
+#ask-voice, for things related to the voice team, such as latency, speech recognition or speech synthesis 
+#ask_legal, for questions about the contracts or permissions for your clients 
+#ask-portal, is for questions about the legacy PolyAI portal for intent based agents 
+#studio_or_portal_access_request, when you need to give a client access to Agent Studio 
+#ask-analytics, for dashboard related queries
+
+V2.0.1  
+3 DEC 2025
+66
+Escalating Well
+Managing Clients
+Escalating Internally
+You will have difficult projects, and it is important to know how to use your 1-1s, account reviews, and other meetings to escalate 
+and ask for help at the right time.
+Which Category Does the Problem Fall into?
+The problem does not pose an immediate risk to the task/
+project/org. You are in control to resolve it.
+The problem is site sensitive/serious and there are risks/
+consequences involved. You may be in control and need 
+managerial support.
+Actions to Take
+•Inform only 
+•Communicate your solution via slack or in a 1-1 
+•No actions needed from the manager 
+•Let your manager decide whether they want to step in and help
+•Escalate quickly and specify action needed from manager 
+•Communicate via slack immediately, and discuss further in 1-1s 
+•Communicate the solution
+
+Agent Design
+PART THREE
+
+V2.0.1  
+3 DEC 2025
+68
+Coming Soon
+Project Delivery
+What and How we Build
+
+Technical Guides
+PART FOUR
+
+V2.0.1  
+3 DEC 2025
+70
+Telephony In General
+Project Delivery
+What and How we Build
+• PolyAI preferred telephony set up 
+• This is telephony ‘over the internet’, connected by a SIP Trunk. A 
+SIP trunk is created by the telephony provider on your project to 
+allow for calls to be routed to PolyAI and from PolyAI back to the 
+client 
+• Allows for sending of information on call termination and handoff 
+e.g. handoff reason and FAQ asked  
+• Set up time can vary depending on vendor see the next slides for 
+more information
+Telephony will either be connected via SIP or PSTN. Read 
+more on telephony here 
+SIP (Session Initiation Protocol) 
+PSTN (Public Switched Telephone Network) 
+•  Traditional legacy phone network 
+• Phone to phone with no need or requirement of the internet 
+• Very fast to set up (1-2 days) but has low capability e.g. cannot 
+send any additional conversation information to a human 
+agent on handoff 
+• To complete the integration: 
+• PolyAI will set up a phone number for the agent 
+• Vendors will route their private number to the new PolyAI 
+number 
+• Vendors may need to set up a ‘secondary’ number that 
+PolyAI sends calls back to on transfer
+The following guides mention the SIP Interoperability Doc. This is a document that acts as a project plan, run by an engineer. It’s worth 
+checking in frequently on the document to make sure it’s up to date. You can also show it to key project stakeholders to describe the 
+process.
+
+V2.0.1  
+3 DEC 2025
+71
+How to: Generic SIP
+Project Delivery
+What and How we Build
+Send our SIP Workbook
+Interoperability doc created 
+by Engineering
+Telephony Kick Off & 
+Timeline Agreed
+Things to Remember 
+• Ensure an SoW is in place between the client and the vendor 
+• Make use of the telephony slack channel and telephony engineers 
+• Kickoff early 
+• Ensure dates in the interoperability doc are in the main project timeline 
+• Have at least one-two weeks between the telephony vendor completing their work 
+and go live
+
+V2.0.1  
+3 DEC 2025
+72
+How to: Five9
+Project Delivery
+What and How we Build
+Email Five9 Team for initial 
+setup
+Interoperability doc created 
+by Engineering
+Telephony Kick Off & 
+Timeline Agreed
+Things to Remember 
+• Five9 are slow, and an SoW may be required between the client and Five9. You will 
+want to start this progress immediately at kickoff, without delay. 
+• Five9 will assign a resource, such as a project manager. Keep pushing for a kickoff 
+meeting with them. 
+• Five9 has a multi-tenant SIP trunk that connects to PolyAI in the USA. Some clients 
+assume that an entirely new trunk needs to be provisioned. It does not. 
+• Five9 will typically send us a SIP document for us to complete.
+Detailed Architecture Information
+
+V2.0.1  
+3 DEC 2025
+73
+How to: NICE inContact / CXOne
+Project Delivery
+What and How we Build
+Email for setup, requesting 
+pseudo numbers
+Interoperability doc created 
+by Engineering
+Telephony Kick Off & 
+Timeline Agreed
+Things to Remember 
+• There are two ways to connect to NICE.Each client has their own set of pseudo 
+numbers assigned to them by NICE. We can either use these numbers or our 
+connector auth token to route calls to a project. Ask your telephony engineer which 
+they prefer, and propose it. 
+• NICE uses the same IPs across all clients, so we can use the shared nice connector 
+service integration.
+Detailed Architecture Information
+
+V2.0.1  
+3 DEC 2025
+74
+How to: RingCentral
+Project Delivery
+What and How we Build
+Coming Soon
+
+V2.0.1  
+3 DEC 2025
+75
+How to: Payments and PCI
+Project Delivery
+What and How we Build
+Discussing with a client
+We can take payments and make card holds securely using most payment gateways 
+and providers. The payment will be taken in a secure section of the call that PolyAI does 
+not and cannot record. PolyAI will be able to generate a token, or execute a payment. 
+Card payments and ACH are generally supported. Our PCI documentation is available 
+on request. 
+Payments are generally specified in the order form, along with the payment gateway.
+Internally / Technical Detail
+We use Twilio Pay to securely take the payment. This service handles the payment so 
+PolyAI is unable to see the private card information. For payment providers that Twilio 
+Pay supports out of the box (e.g. Stripe, Braintree, Base Commerce, Card Connect) we 
+can build immediately. Your engineer will tell you which details we need from the client. 
+If the payment provider is not supported by Twilio, check to see if it is supported by 
+Shuttle.       If it is not supported by Shuttle, we can pay Shuttle PS for them to build a 
+connector. Shuttle allows us to use additional payment providers with Twilio Pay.
+PolyAI can take card payments over the phone, using third party 
+PCI compliant systems.
+
+=== Deployments_Playbook_part10 ===
+Top Tips
+PART FIVE
+
+V2.0.1  
+3 DEC 2025
+77
+be a 
+human
+Top Tips
+For Working With Clients
+Build a connection with your clients and humanise yourself. Make them feel smart, make them feel like 
+they came up with ideas. Have a story behind your decisions. Be vulnerable, you’re in this together with 
+your clients.
+
+V2.0.1  
+3 DEC 2025
+78
+avoid 
+conflict
+Top Tips
+For Working With Clients
+Blame process, not yourself. Be firm when saying no, but try and make it a ‘yes but’. Frame your noes as 
+opportunities. Avoid conflict, especially early. Usually you can find an agreement, or be vulnerable and 
+make them understand why something might not be so simple.
+
+V2.0.1  
+3 DEC 2025
+79
+create a 
+cushion
+Top Tips
+For Working With Clients
+Pad your timelines upfront, and adjust later to accommodate. Make it clear you are flexible. Emphasise the 
+great services we provide for our clients, our malleability and how custom deployments can be. UNDER 
+PROMISE, OVER DELIVER.
+
+V2.0.1  
+3 DEC 2025
+80
+make scope 
+creep a win
+Top Tips
+For Working With Clients
+Don’t say ‘it’s out of scope’. Say, ‘let’s explore it’. Read back scope status regularly to manage scope creep 
+gently. Accept a few small changes to avoid the big ones. Use the scope run through meetings effectively.
+
+V2.0.1  
+3 DEC 2025
+81
+perception 
+matters
+Top Tips
+For Working With Clients
+Make the team seem bigger than it is, especially for large clients. Bring in engineers and Agent Designers 
+and emphasise them. Call them leads and talk about their teams. Build credibility with out expertise. On-
+sites are incredibly valuable, people are much nicer and more reasonable in person. Travel.
+
+=== How to Not Suck (1) ===
+How To Be A Good Deployment Strategist
+
+Teamwork
+"The strength of the team is each individual member. The strength of each 
+member is the team."
+— Phil Jackson
+We need each other.
+
+You Are The Driver
+You are NOT a messenger of the client.
+You lead with expertise and are a deployment master.
+You guide, push, persuade, and control narratives.
+
+Internal Communications
+- Handover notes need to be in the public PSM channel — no backchanneling
+- VOLUNTEER AND SUPPORT YOUR PSMs WHEN THEY'RE OUT — THIS IS NOTICED
+- Force yourself to be in uncomfortable situations – this is how you grow
+INTERNAL COMMS
+
+INTERNAL COMMS
+Internal Communications
+Hype your team.
+Have their back.
+Be there for them.
+Own Morale. 
+Post Go Lives in General.
+
+Emails
+Emails are not simply recaps
+They are to RE-ASSERT YOUR NARRATIVE
+while providing crucial client updates.
+Art of the Email
+
+A Bad Email:
+-
+Regurgitates well known facts
+-
+Asserts nothing
+-
+Has incorrect formatting or is unhuman (don’t use LLMs to write you an email, it is obvious)
+A Good Email(er):
+-
+Controls Narrative (See last email with bad/neutral call– “… so not a true gap on our side”
+-
+Is human (emojis/human language)
+-
+Knows time and place for formality
+Emails
+Dissecting Emails
+
+Dissecting Emails
+VS.
+Emails
+
+Dissecting Emails
+Emails
+
+Organization
+The documentation for a given project post-sales lies with 
+YOU
+Organized UAT sheets
+Strong Acceptance Criteria Documentation
+Weekly Slides
+Begin Weekly Calls with Timeline/Action Tracker/Slides
+Client Comms
+
+-Do not invoke others in calls if you feel you are setting them up for failure
+-The team needs to be allies to the client, not blockers
+-Tee up talking points for your internal members
+-Client calls are a dance especially when there's tension
+-Talk HIGHLY about your colleagues. Don't just say they're a member of the team, say they are the lead, or the head, etc.
+Client Comms
+Set Others Up For Success
+
+Control Narrative
+You're a storyteller.
+- Tell stories with data - Talk about achievements/past client triumph
+-
+Push for more and have faith in the internal team
+-
+Whip up quick slide decks when necessary IE: Post hypercare with a 
+client that’s still not 100% bought in. After a competitive POC or 
+bakeoff.
+Client Comms
+
+Learn to Live in Ambiguity
+YOU are the person to get the project out of the mud.
+PSMs fill in GAPS
+ESCALATE
+Lean on AEs/CSAMs for Commercial/Account Level Concerns
+
+Listening to Calls
+DO THE WORK
+-
+Force ADs to schedule QAs
+-   Do metrics QAs
+-
+UNDERSTAND YOUR METRICS
+-
+Proactively log issues that you feel the client would be upset over – learn how to prioritize 
+Agent Studio
+
+Dashboarding
+If you don't know the data well, your efficacy as a "strategist" is greatly depleted.
+Look at other client datasets and dashboards.
+Obsess over quality and make it fun for the client.
+QuickSuite
+
+Data Hygiene
+- Dashboarding and otherwise
+- Don't mix clients up — whether it be an email or an Excel
+- You want them to think they are important while also holding boundaries
+- Know when to invoke the support team and when to do things yourself
+Quicksuite
+
+Use Agent Studio
+If you don't know how to make a KB change, use real time config, or update pronunciations in Audio Management...
+You should.
+Pay attention to product all hands. Watch enablement sessions. 
+SELF START
+Agent Studio
+
+Know How to Use AI to Make Life Easier
+- Formatting Data/Various Data tasks
+- QS queries – It’s very easy to use Claude for QS if 
+you’re unsure
+- Notetaking (Granola/Gong) – there is no excuse for 
+“forgetting” → track everything
+There's so much at your disposal.
+
+Learn Their Business & Know Your Stuff
+It is on you and the AD to learn their business together.
+You are THEIR AI SME.
+You need to know the important metrics, the run rate utilization, the go live dates (roughly), etc. 
+
+Quick Tips
+- If something doesn’t sit right with you, do something about it. IE: Regenerate audio yourself
+-
+Do not use the word outage to describe API errors – do not call into question PolyAI’s uptime/etc.
+-
+You don’t always have to think quickly on your feet. Confidently saying “I don’t know” is okay
+-
+DON’T PASTE API CREDENTIALS INTO SLACK
+-
+Understand CSAMs are there to support for build but you should not lean on them. We can introduce them but do 
+not characterize them as people to assist during the build phase
+
+=== Processes and bits ===
+This is the title slide
+This is a subtitle, by Tori
+
+Deployment Strategy
+Goals
+Page 2
+The Goal
+To create a checkpointed project delivery method, 
+with clear benefits and expectations.
+
+Deployment Strategy
+Page 3
+Why should we change 
+how we work?
+
+This is not an exercise in micromanagement
+Deployment Strategy
+Why change
+Page 4
+Why?
+❖Changing our mindset from start up to scale up while staying on top of quality
+❖Increasing client visibility and expectation
+❖Processes are made to:
+•
+Protect you and the team 
+•
+Reduce rework and ambiguity 
+•
+Help us to defend against hostile client situations
+
+Page 5
+Everything’s Changing
+Deployment Strategy
+Does anyone actually read these?
+Yes and no…
+There is no change to…
+• Expectations - same requirements just 
+with a process behind it
+• IRBo 
+We’re trialling formalised…
+• Pre-build check-ins
+• Post go-live check-ins
+• Monthly PSM retro’s
+
+Deployment Strategist
++1 kudos if you put your hand up
+Page 6
+Pre-build Check-In 
+The objective: Ensure we’ve set the project up for success.
+Unearth the unknowns and level set the project teams 
+understanding of the project scope, timeline, and design.
+MVP Documentation: 
+❖Kick-off Deck 
+❖Timeline
+❖Action tracker
+❖Scoping document 
+Create your project-
+tech channel when 
+assigned to the project
+Add your 
+manager/Rob/Tori to 
+the slack channel
+Add your project on 
+the ‘Lists’ page
+Create your projects 
+notion page
+Add the MVP 
+Documentation for this 
+phase of the project
+
+Deployment Strategy
+Page 7
+IRBo
+No change 
+The Good News
+
+Deployment Strategy
+Hypercare Check-in – Almost there
+Page 8
+Post-Go-Live – 2 week check in
+The objective: To understand the client sentiment so far 
+and ensure we’re acting in the best interest of PolyAI and 
+the client.
+The expectation:
+❖Hypercare progressing
+❖Call reviews by the team
+❖Dashboards (Standard and additional for further 
+discovery) 
+❖Up to date release notes
+Trigger: hitting 2 
+weeks post go-live
+Review with your 
+manager…
+Hypercare sheet
+Deployment team 
+reviews
+Release notes
+Dashboards
+Use this time to get input and advice on the project. 
+You are the mini-CEO during the deployment; how can 
+you push the account to be better and grow?
+
+Deployment Strategy
+Hypercare Check-in – Penultimate slide
+Page 9
+Post-Go-Live – 4 week check in
+The objective: To showcase your knowledge and understanding of the client, their use case, and how PolyAI can help them in 
+future.
+The expectation:
+❖Hypercare complete or planned for completion 
+❖Present your response to:
+❖How are we tracking towards KPIs?
+❖What can we do to improve on the KPIs (if not met) / what 3 things can we change or propose to the client?
+❖How are we tracking towards utilization?
+❖Prove that your clients have pushed a change to live
+
+https://docs.google.com/presentation/d
+/1J4dco5sdK-SYy-
+kAEGHz8R8RWx06KBGxmyp6cR-
+emCE/edit?slide=id.g3aefc63887b_0_67
+1#slide=id.g3aefc63887b_0_671
+Examples
+Page 10
+
+Questions and suggestions

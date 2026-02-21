@@ -1,10 +1,8 @@
 """Deployment Strategy Assistant — web chat interface."""
 
 import os
-import glob
 import streamlit as st
 import anthropic
-import fitz  # pymupdf
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -62,28 +60,14 @@ USER: "Nothing/That's it"
 ASSISTANT: "Thanks, hope that helped! Have a great rest of your day. Bye!"
 """
 
-# ── Load PDFs from the documents/ folder ─────────────────────────────────────
+# ── Load knowledge base ───────────────────────────────────────────────────────
 
 @st.cache_resource(show_spinner="Loading knowledge base…")
-def load_documents() -> list[dict]:
-    """Extract text from all PDFs and return as text content blocks."""
-    docs_dir = os.path.join(os.path.dirname(__file__), "documents")
-    pdf_paths = sorted(glob.glob(os.path.join(docs_dir, "*.pdf")))
-
-    blocks = []
-    for path in pdf_paths:
-        doc = fitz.open(path)
-        text = "\n".join(page.get_text() for page in doc)
-        doc.close()
-        if not text.strip():
-            continue
-        name = os.path.splitext(os.path.basename(path))[0]
-        blocks.append({
-            "type": "text",
-            "text": f"=== Document: {name} ===\n{text}",
-        })
-
-    return blocks
+def load_knowledge_base() -> str:
+    """Read the pre-extracted knowledge base text file."""
+    kb_path = os.path.join(os.path.dirname(__file__), "documents", "knowledge_base.txt")
+    with open(kb_path, encoding="utf-8") as f:
+        return f.read()
 
 # ── Anthropic client ──────────────────────────────────────────────────────────
 
@@ -117,15 +101,14 @@ if user_input:
         st.markdown(user_input)
 
     # Build the messages list for the API
-    # Inject PDFs into the first user turn as document blocks
-    doc_blocks = load_documents()
+    kb_text = load_knowledge_base()
     client = get_client()
 
     api_messages = []
     for i, msg in enumerate(st.session_state.messages):
-        if msg["role"] == "user" and i == 0 and doc_blocks:
-            # Attach documents to the very first user message
-            content = doc_blocks + [{"type": "text", "text": msg["content"]}]
+        if msg["role"] == "user" and i == 0 and kb_text:
+            # Prepend knowledge base to the very first user message
+            content = f"Here is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}\n\n---\n\n{msg['content']}"
         else:
             content = msg["content"]
         api_messages.append({"role": msg["role"], "content": content})
