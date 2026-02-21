@@ -7,7 +7,7 @@ import anthropic
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Rob Bot",
+    page_title="RobBot",
     layout="centered",
 )
 
@@ -184,7 +184,7 @@ st.markdown(f"""
 <div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 1.25rem 0;border-bottom:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;">
   {_avatar_html}
   <div style="min-width:0;">
-    <div style="font-size:1.25rem;font-weight:700;color:#000;letter-spacing:-0.02em;line-height:1.2;">Rob Bot</div>
+    <div style="font-size:1.25rem;font-weight:700;color:#000;letter-spacing:-0.02em;line-height:1.2;">RobBot</div>
     <div style="font-size:0.8rem;color:#444;margin-top:3px;line-height:1.3;">Your Deployment Strategy assistant at PolyAI</div>
   </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;">
