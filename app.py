@@ -32,11 +32,12 @@ st.markdown("""
   /* Assistant bubble — white card */
   [data-testid="stChatMessage"] {
     background: #ffffff;
-    border-radius: 14px;
+    border-radius: 12px;
     border: 1px solid rgba(0,0,0,0.1);
-    padding: 0.75rem 1rem !important;
-    margin-bottom: 0.5rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    padding: 0.5rem 0.85rem !important;
+    margin-bottom: 0.35rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    font-size: 0.875rem;
   }
 
   /* User bubble — black card with white text */
@@ -80,11 +81,11 @@ st.markdown("""
   /* Starter prompt chips */
   div[data-testid="stHorizontalBlock"] [data-testid="stBaseButton-secondary"] {
     border-radius: 20px !important;
-    border: 1.5px solid rgba(0,0,0,0.35) !important;
-    background: rgba(255,255,255,0.75) !important;
-    color: #111 !important;
-    font-size: 0.82rem !important;
-    padding: 0.4rem 0.9rem !important;
+    border: 1px solid rgba(0,0,0,0.25) !important;
+    background: rgba(255,255,255,0.6) !important;
+    color: #444 !important;
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.75rem !important;
     text-align: left !important;
     transition: background 0.15s, color 0.15s !important;
   }
@@ -333,7 +334,7 @@ elif _nearing_limit:
 
 # Starter prompt chips — only shown before the first message
 if not st.session_state.messages:
-    st.markdown('<div style="font-size:0.8rem;color:#555;margin:0.75rem 0 0.4rem 0;font-weight:500;">Try asking:</div>', unsafe_allow_html=True)
+    st.markdown('<div style="font-size:0.7rem;color:#888;margin:0.4rem 0 0.3rem 0;">Try asking:</div>', unsafe_allow_html=True)
     _sc = st.columns(2)
     for _si, _sp in enumerate(STARTER_PROMPTS):
         if _sc[_si % 2].button(_sp, key=f"starter_{_si}", use_container_width=True):
