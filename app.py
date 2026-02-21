@@ -275,7 +275,7 @@ if user_input and not _limit_reached:
             max_tokens=1024,
             system=system_with_kb,
             messages=api_messages,
-            betas=["prompt-caching-2024-07-31"],
+            extra_headers={"anthropic-beta": "prompt-caching-2024-07-31"},
         ) as stream:
             for text in stream.text_stream:
                 full_response += text
