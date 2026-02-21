@@ -88,12 +88,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Avatar (drop assets/avatar.png into the project to use it) ────────────────
+# ── Avatar — checks assets/ then documents/ so either upload location works ───
 @st.cache_resource
 def load_avatar():
     from PIL import Image
-    path = os.path.join(os.path.dirname(__file__), "assets", "avatar.png")
-    return Image.open(path) if os.path.exists(path) else None
+    base = os.path.dirname(__file__)
+    for candidate in [
+        os.path.join(base, "assets", "avatar.png"),
+        os.path.join(base, "documents", "avatar.png"),
+        os.path.join(base, "assets", "avatar.jpg"),
+        os.path.join(base, "documents", "avatar.jpg"),
+    ]:
+        if os.path.exists(candidate):
+            return Image.open(candidate)
+    return None
 
 # ── System prompt (agent rules) ───────────────────────────────────────────────
 SYSTEM_PROMPT = """# WHO YOU ARE
