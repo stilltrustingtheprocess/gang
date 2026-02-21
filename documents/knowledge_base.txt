@@ -170,7 +170,7 @@ PolyAI builds virtual assistants, usually for voice, that empowers callers to en
 reputation. At their best, our assistants are indistinguishable from humans and drastically reduces the need for 
 humans in a contact centre, reserving them for the callers that need empathy and tact. 
 Your job is to deliver these agents, to maximise the quality of them and to be client centric. 
-Your mission as the PSM is to turn this into a reality. 
+Your mission as the DS is to turn this into a reality. 
 You will make our clients feel excited about the work they are doing. You’ll chase ROI for our customers, and even 
 when the measure is blurry, you’ll chase engagement for their callers. 
 This playbook is your guide. 
@@ -270,9 +270,9 @@ Project Delivery
 What and How we Build
 The Deployment Team is a subset of Team Y, a.k.a. The Project 
 Team or the PS Org 
-It contains Agent Designers, Product Solutions Managers and the 
+It contains Agent Designers, Deployment Strategists and the 
 Support team. 
-Product Solutions Managers are the primary client contact for the build 
+Deployment Strategists are the primary client contact for the build 
 of a virtual agent. They own the timeline and the project plans. They 
 build and manage dashboards, analytics, and success rates. They make 
 the client feel good about what they’ve purchased. 
@@ -284,7 +284,7 @@ The Support team manage our service desk, where live and running
 clients submit fault requests.
 team y
 deployments
-PSMs
+DSs
 agent  
 designers
 build  
@@ -302,7 +302,7 @@ Who Builds
 Project Delivery
 What and How we Build
 Team Y, the wider Project Team, operates in ‘pods’ 
-Pods contain scrum masters and engineers, who report into Eddy’s org, agent designers, PSMs and a CSM. 
+Pods contain scrum masters and engineers, who report into Eddy’s org, agent designers, DSs and a CSM. 
 New projects and clients are assigned to the pods. 
 The pod makeups may change, but at time of writing are: 
 Bao, primarily based in the UK and responsible largely for FedEx 
@@ -330,15 +330,15 @@ Deployment Process: Handovers
 Project Delivery
 Deployment Process
 Sales to Delivery Handoff 
-This meeting is booked by the AE within 5-10 days of signature. At this point, a PSM is 
+This meeting is booked by the AE within 5-10 days of signature. At this point, a DS is 
 assigned to attend the meeting. Department heads will also join. This meeting has a 
-structured slide deck. PSM’s should ensure they know: 
+structured slide deck. DS’s should ensure they know: 
 • Who the main points of contact are 
 • The scope, in detail, including integrations, parts that are missing, etc 
 • Expected timelines 
 • The commercial structure, ramp period, opt outs, etc
 The External Kickoff Meeting 
-This meeting is booked by the PSM after the AE sends an introduction email. Usually, a 
+This meeting is booked by the DS after the AE sends an introduction email. Usually, a 
 client will invite all stakeholders to this meeting, as they expect to know who is 
 responsible for each step of the process. 
 Details on how to run this meeting are found on page 28.
@@ -354,7 +354,7 @@ After kickoff, you should validate the scope of the virtual agent with the clien
 Often, the contracted scope will have nuances that will change. We want to be 
 easy to work with, so some changes should be accepted for free. 
 For this meeting you should: 
-• Be extremely familiar with the flow in the order form. A detail oriented PSM may 
+• Be extremely familiar with the flow in the order form. A detail oriented DS may 
 re-create the diagram in a more client friendly way, slightly simplified. 
 • Not allow the client to leave too much in the open, you want answers, and if the 
 client cannot answer them, this may delay build 
@@ -391,7 +391,7 @@ V2.0.1
 Deployment Process: Tech Kickoff
 Project Delivery
 Deployment Process
-Project Setup Checklist, For the PSM 
+Project Setup Checklist, For the DS 
 • Create a Notion project page in the projects database. Use the template 
 • Input contracted milestone dates into the Notion 
 • Place links to all discovery and contractual information into the Notion 
@@ -403,7 +403,7 @@ It is possible there will be surprises for our compliance team, especially if th
 Identifiable Information) or PHI (Personal Healthcare Information). It is often good to check with our compliance 
 team, especially if it’s a new industry or use case 
 Internal Tech Kickoff 
-By this point, a pod should be fully assigned, and the PSM organises an internal tech kickoff where they run 
+By this point, a pod should be fully assigned, and the DS organises an internal tech kickoff where they run 
 through the agreed scope, and agreeing milestone dates. At this point, the engineering lead should begin 
 planning how long each action might take, and working backwards from the contracted go live date.
 
@@ -480,7 +480,7 @@ Deployment Process: Building (
 Project Delivery
 Deployment Process
 Keeping Close to the Engineering Team 
-WAs a PSM, the engineering team are ultimately waiting on your guidance and 
+WAs a DS, the engineering team are ultimately waiting on your guidance and 
 timelines. Projects will not move at the pace required unless you are close to the day to 
 day. You must: 
 • Be deeply familiar with the bot and it’s behaviour. Clients will ask you about it, and 
@@ -499,7 +499,7 @@ Deployment Process: Metrics
 Project Delivery
 Deployment Process
 Defining Metrics 
-The PSM is responsible for defining the metrics required in the project. There are some standard metrics which must be 
+The DS is responsible for defining the metrics required in the project. There are some standard metrics which must be 
 followed and you should check that these are implemented correctly. 
 Metrics are ‘checkpoints’ in a conversation. When a caller hits a point in a conversation, a metric will be written. It could be 
 something simple like ‘BOOKING_INITIATED’ which is a single event. Or it could contain data, for example ‘QA’ which signals a 
@@ -595,7 +595,7 @@ Deployment Process: Pre-Go Live
 Project Delivery
 Deployment Process
 Once the client says ‘Go’ 
-The engineering team will run an HLD meeting. The PSM is optional, but this is a critical 
+The engineering team will run an HLD meeting. The DS is optional, but this is a critical 
 internal governance step. Be sure an engineer has written the HLD document in advance of 
 this meeting. 
 It is important to then test the live APIs. This may require setting up a call with the customer 
@@ -662,7 +662,7 @@ Project Delivery
 Deployment Process
 QBR/MBR 
 For clients who are larger, there will be a monthly recap meeting set up by the CSM. 
-The CSM and PSM work together to collate the releases from the past month, metrics, 
+The CSM and DS work together to collate the releases from the past month, metrics, 
 and suggested improvements. 
 Please see CS guidance on how to lead these meetings. 
 Upsell / Renewal Procedure 
@@ -675,9 +675,9 @@ In Depth: The Kickoff Meeting
 Project Delivery
 The Kickoff Meeting
 The next slides will run through how to run a project kickoff. This 
-is the PSM’s first meeting with the client.
+is the DS’s first meeting with the client.
 The introduction slide is straightforward. 
-The PSM is the main contact for the deployment, and the client should reach 
+The DS is the main contact for the deployment, and the client should reach 
 out to you primarily. That avoids miscommunication. It’s also a good time to get 
 a single point of contact from the client. 
 You’ll want to introduce anyone else on the call in addition to the concept of a 
@@ -861,7 +861,7 @@ Project Delivery
 IRBo
 In order to maintain project quality, before going into UAT, there will be an ‘implementation review board’ meeting. In this 
 meeting, held at least 7 days before the planned client UAT kickoff, a set of requirements will be presented to the most senior 
-engineer, Agent Designer and PSM in the team. As of Feb 2025, these are Eddy, Arkadiusz and Nathan. 
+engineer, Agent Designer and DS in the team. As of Feb 2025, these are Eddy, Arkadiusz and Nathan. 
 The meeting agenda is as follows: 
 1. Brief overview of project functionality 
 2. Walk through completed QA sheet 
@@ -977,7 +977,7 @@ Project Delivery
 Release Log
 When we push to live, we must update a release log. This is a compliance requirement, 
 adds professionalisation, and is good defence against a client. This must always be 
-updated. It is owned by the PSM for build and hypercare, and then can be transitioned 
+updated. It is owned by the DS for build and hypercare, and then can be transitioned 
 to CS or the scrum master. 
 The release log template        table includes a release date, a deployment owner, a version 
 number and a list of changes. They are stored in a shared Google Drive. These should: 
@@ -987,7 +987,7 @@ relevant
 • Have evidence of QA 
 There is a separate box for QA, which is our evidence to a client that we have done due 
 diligence and tested the virtual agent. It is acceptable to put minor known issues in here. 
-An internal QA doc can be included that the PSM can later refer to as evidence. 
+An internal QA doc can be included that the DS can later refer to as evidence. 
 Regardless of the size of the push, a release log must be added. There is a Google Docs 
 shortcut, just type @Release Log to auto-insert the table. 
 To share this with a client, either share the live Google Doc or export as a PDF and send 
@@ -1089,7 +1089,7 @@ When taking PTO:
 • Create a Notion page 
 • List all your projects 
 • List deliverables that must be complete at the end of your holiday, in detail, 
-including the tools that another PSM will need to be able to complete that task 
+including the tools that another DS will need to be able to complete that task 
 • List the main contacts for each project 
 • Invite your cover to scheduled meetings 
 • Send an email to the client to introduce them to your cover
@@ -1275,7 +1275,7 @@ Escalating Internally
 There are many slack channels for escalating questions 
 Sometimes you or an engineer might meet the end of the road in solving a client problem. Look to the right team to 
 help. 
-#psms-internal, to chat to just the PSMs 
+#DSs-internal, to chat to just the DSs 
 #ask-agent-studio, for questions or problems with the Agent Studio web app 
 #ask-voice, for things related to the voice team, such as latency, speech recognition or speech synthesis 
 #ask_legal, for questions about the contracts or permissions for your clients 
@@ -1520,8 +1520,8 @@ You lead with expertise and are a deployment master.
 You guide, push, persuade, and control narratives.
 
 Internal Communications
-- Handover notes need to be in the public PSM channel — no backchanneling
-- VOLUNTEER AND SUPPORT YOUR PSMs WHEN THEY'RE OUT — THIS IS NOTICED
+- Handover notes need to be in the public DS channel — no backchanneling
+- VOLUNTEER AND SUPPORT YOUR DSs WHEN THEY'RE OUT — THIS IS NOTICED
 - Force yourself to be in uncomfortable situations – this is how you grow
 INTERNAL COMMS
 
@@ -1593,7 +1593,7 @@ Client Comms
 
 Learn to Live in Ambiguity
 YOU are the person to get the project out of the mud.
-PSMs fill in GAPS
+DSs fill in GAPS
 ESCALATE
 Lean on AEs/CSAMs for Commercial/Account Level Concerns
 
@@ -1696,7 +1696,7 @@ with a process behind it
 We’re trialling formalised…
 • Pre-build check-ins
 • Post go-live check-ins
-• Monthly PSM retro’s
+• Monthly DS retro’s
 
 Deployment Strategist
 +1 kudos if you put your hand up
