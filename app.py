@@ -213,7 +213,7 @@ if _limit_reached:
 """, unsafe_allow_html=True)
 
 # Chat input — disabled once limit is reached
-user_input = st.chat_input("Type your message here…", disabled=_limit_reached)
+user_input = st.chat_input(disabled=_limit_reached)
 
 if user_input and not _limit_reached:
     # Show user message immediately
