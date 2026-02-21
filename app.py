@@ -267,7 +267,14 @@ if user_input and not _limit_reached:
     recent_messages = st.session_state.messages[-20:]
     api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
 
-    system_with_kb = f"{SYSTEM_PROMPT}\n\nHere is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}"
+    system_with_kb = [
+        {"type": "text", "text": SYSTEM_PROMPT},
+        {
+            "type": "text",
+            "text": f"Here is the knowledge base for PolyAI Deployment Strategy:\n\n{kb_text}",
+            "cache_control": {"type": "ephemeral"},
+        },
+    ]
 
     # Stream the assistant reply
     avatar_kwargs = {"avatar": _avatar} if _avatar is not None else {}
@@ -280,6 +287,7 @@ if user_input and not _limit_reached:
             max_tokens=1024,
             system=system_with_kb,
             messages=api_messages,
+            extra_headers={"anthropic-beta": "prompt-caching-2024-07-31"},
         ) as stream:
             for text in stream.text_stream:
                 full_response += text
