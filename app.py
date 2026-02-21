@@ -1,5 +1,6 @@
 """Deployment Strategy Assistant — web chat interface."""
 
+import base64
 import os
 import streamlit as st
 import anthropic
@@ -24,32 +25,6 @@ st.markdown("""
     max-width: 760px;
     padding-top: 2rem;
     padding-bottom: 1rem;
-  }
-
-  /* Title — black on lime */
-  h1 {
-    font-size: 1.6rem !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.02em;
-    color: #000000 !important;
-  }
-
-  /* Accent bar under title */
-  h1::after {
-    content: "";
-    display: block;
-    height: 3px;
-    width: 40px;
-    background: #000000;
-    border-radius: 2px;
-    margin-top: 6px;
-  }
-
-  /* Caption */
-  .stCaption p {
-    color: #333333 !important;
-    font-size: 0.85rem !important;
-    margin-top: -0.4rem;
   }
 
   /* Assistant bubble — white card */
@@ -88,10 +63,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ── Avatar — checks assets/ then documents/ so either upload location works ───
-@st.cache_resource
-def load_avatar():
-    from PIL import Image
+# ── Avatar helpers ────────────────────────────────────────────────────────────
+def _find_avatar_path():
     base = os.path.dirname(__file__)
     for candidate in [
         os.path.join(base, "assets", "avatar.png"),
@@ -100,8 +73,22 @@ def load_avatar():
         os.path.join(base, "documents", "avatar.jpg"),
     ]:
         if os.path.exists(candidate):
-            return Image.open(candidate)
+            return candidate
     return None
+
+@st.cache_resource
+def load_avatar():
+    from PIL import Image
+    path = _find_avatar_path()
+    return Image.open(path) if path else None
+
+@st.cache_resource
+def load_avatar_b64():
+    path = _find_avatar_path()
+    if not path:
+        return None
+    with open(path, "rb") as f:
+        return base64.b64encode(f.read()).decode()
 
 # ── System prompt (agent rules) ───────────────────────────────────────────────
 SYSTEM_PROMPT = """# WHO YOU ARE
@@ -182,8 +169,26 @@ if "messages" not in st.session_state:
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 
-st.title("Rob Bot")
-st.caption("Ask me anything about the Deployment Strategist role or anything about our deployments and operations!")
+# Header — avatar circle + name + subtitle
+_b64 = load_avatar_b64()
+if _b64:
+    _avatar_html = f'<img src="data:image/png;base64,{_b64}" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid #000;flex-shrink:0;"/>'
+else:
+    _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
+
+st.markdown(f"""
+<div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 1.25rem 0;border-bottom:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;">
+  {_avatar_html}
+  <div style="min-width:0;">
+    <div style="font-size:1.25rem;font-weight:700;color:#000;letter-spacing:-0.02em;line-height:1.2;">Rob Bot</div>
+    <div style="font-size:0.8rem;color:#444;margin-top:3px;line-height:1.3;">Your Deployment Strategy assistant at PolyAI</div>
+  </div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;">
+    <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+    <span style="font-size:0.75rem;color:#444;font-weight:500;">Online</span>
+  </div>
+</div>
+""", unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
