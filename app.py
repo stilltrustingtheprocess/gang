@@ -8,8 +8,7 @@ import anthropic
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Deployment Strategy Assistant",
-    page_icon="💼",
+    page_title="Rob Bot",
     layout="centered",
 )
 
@@ -102,8 +101,8 @@ if "messages" not in st.session_state:
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 
-st.title("💼 Deployment Strategy Assistant")
-st.caption("Ask me anything about the Deployment Strategy role.")
+st.title("Rob Bot")
+st.caption("Ask me anything about the Deployment Strategist role or anything about our deployments and operations!")
 
 # Render conversation history
 for msg in st.session_state.messages:
