@@ -158,9 +158,9 @@ to use the best hybrid of all three options.
 Who Builds
 The Deployment Team is a subset of Team Y, a.k.a. The Project
 Team or the PS Org
-It contains Agent Designers, Product Solutions Managers and the
+It contains Agent Designers, Deployment Strategists and the
 Support team.
-Product Solutions Managers are the primary client contact for the build of a virtual agent. They own the timeline and the project plans. They
+Deployment Strategists are the primary client contact for the build of a virtual agent. They own the timeline and the project plans. They
 build and manage dashboards, analytics, and success rates. They make the client feel good about what they've purchased.
 Agent Designers script the agent and prompt the LLM. They are responsible for the quality of the agent and making it as lifelike as
 possible. They own relationships with the voice actors and produce deep analytics.
