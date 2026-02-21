@@ -81,7 +81,6 @@ def load_documents() -> list[dict]:
                 "media_type": "application/pdf",
                 "data": data,
             },
-            "cache_control": {"type": "ephemeral"},
         })
 
     return blocks
