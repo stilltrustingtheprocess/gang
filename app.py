@@ -81,7 +81,6 @@ def load_documents() -> list[dict]:
                 "media_type": "application/pdf",
                 "data": data,
             },
-            "title": os.path.splitext(os.path.basename(path))[0],
             "cache_control": {"type": "ephemeral"},
         })
 
