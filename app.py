@@ -10,6 +10,79 @@ st.set_page_config(
     layout="centered",
 )
 
+# ── Custom CSS ────────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+  /* Hide default Streamlit chrome */
+  #MainMenu, footer, header { visibility: hidden; }
+
+  /* Page background */
+  .stApp { background-color: #f5f5f5; }
+
+  /* Centre column max-width */
+  .block-container {
+    max-width: 760px;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  /* Title */
+  h1 {
+    font-size: 1.6rem !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em;
+    color: #111 !important;
+  }
+
+  /* Caption */
+  .stCaption p {
+    color: #666 !important;
+    font-size: 0.85rem !important;
+    margin-top: -0.4rem;
+  }
+
+  /* Chat message bubbles */
+  [data-testid="stChatMessage"] {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #e8e8e8;
+    padding: 0.75rem 1rem !important;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  /* User bubble slightly tinted */
+  [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
+    background: #eef2ff;
+    border-color: #dde3f8;
+  }
+
+  /* Input box */
+  [data-testid="stChatInput"] textarea {
+    border-radius: 12px !important;
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+    font-size: 0.95rem !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+  }
+  [data-testid="stChatInput"] textarea:focus {
+    border-color: #7c6ef7 !important;
+    box-shadow: 0 0 0 3px rgba(124,110,247,0.12) !important;
+  }
+
+  /* Divider below header */
+  h1::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 40px;
+    background: #7c6ef7;
+    border-radius: 2px;
+    margin-top: 6px;
+  }
+</style>
+""", unsafe_allow_html=True)
+
 # ── System prompt (agent rules) ───────────────────────────────────────────────
 SYSTEM_PROMPT = """# WHO YOU ARE
 
