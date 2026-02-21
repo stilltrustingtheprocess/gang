@@ -1043,3 +1043,46 @@ Answer: Ping Rob directly - there are recordings for telephony that explain the 
 
 Question: What is a telephony intro call like?
 Answer: We should bring on an FDE to explain the process and run through the SIP workbook if needed!}
+
+
+=== Agent Studio Client Training Sessions (Session 1 - Training V1.0 NOV25) ===
+
+There is a dedicated training deck for running Agent Studio onboarding sessions with clients. This is separate from the Agent Studio Academy (which is for DSes to learn on their own). The deck is used to run structured sessions with the client's team post-go-live.
+
+OVERVIEW: Three training sessions are built into the deployment process to get clients up to speed on how to analyse customer data and manage their own agent.
+
+Session 1 – Intro to PolyAI Agents (45 minutes)
+Objective: Understand PolyAI's build methodologies and the capabilities of Agent Studio.
+Agenda covers:
+- What is Agent Studio?
+- The PolyAI Difference (Agent Design principles)
+- Agent Studio Platform Tour
+- Recap and Next Session Preview
+- Questions
+
+Session 2 – Building and Managing Voice Agents (Hands On)
+Objective: Know how to use Agent Studio with an interactive experience — updating KBs, setting up AB tests, and managing voices.
+
+Session 3 – Your Virtual Agent (Hands On)
+Objective: Explore the client's own virtual agent as the build is completed, and learn how to use agentic analysis tools on their own data.
+
+KEY CONTENT FROM SESSION 1 DECK:
+
+What is Agent Studio?
+Agent Studio is PolyAI's virtual agent command center where clients manage their agent's performance. It has two core functions:
+- Update and Build: Intuitive builder tools to update facts, hours, personality, voices, and more when a call could have been better.
+- Manage and Analyze: Agentic features like Smart Analyst to surface the best and worst calls — no need to spend hours listening to calls.
+These two things are linked so clients can quickly prioritise improvements based on real data. Agent Studio is also where PolyAI Agent Designers and Engineers do most of their work.
+
+Agent Studio Architecture:
+Agent Studio is the control layer for PolyAI's proprietary technologies, including: PolyAI LLM (Raven), GPT, Claude and other LLM options; Speech to Text Engine; Text to Speech Engine and Voice Library; Knowledge Base and Flows; Retrieval Engine; Analytics Database; Smart Analyst; Sentiment Analysis; Conversation Reviews.
+
+The PolyAI Difference – Agent Design Principles:
+- Gain Trust, Quick: Start calls with a lifelike, brief "How can I help?" and let users explain their intent naturally.
+- Guide the User: Utterances should implicitly guide the expected response. "What's your name?" is better than "Can I take your name?" (which can get a yes/no).
+- Listen Robustly: Handle a large range of likely responses so users aren't stuck in loops.
+- Give Feedback: Feed back that the caller has been understood. E.g. respond to a booking request with "Sure, I can make that booking."
+- Support Correction: Always allow callers to correct themselves and undo actions. Read back complex data.
+- Act Efficiently: Allow callers to volunteer multiple pieces of information upfront and don't ask again.
+- Speak Clearly and Naturally: Brevity is critical. LLMs can be verbose — keep KB content tight so the agent sounds human.
+Real examples: A UK bank saw 26% increase in call handling by shortening its greeting. A US utilities firm reduced requests to speak to a human by 23% by removing "I'm a virtual assistant" from the greeting.
