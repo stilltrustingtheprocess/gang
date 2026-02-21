@@ -162,6 +162,10 @@ def get_client() -> anthropic.Anthropic:
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     return anthropic.Anthropic(api_key=api_key)
 
+# ── Conversation limit ────────────────────────────────────────────────────────
+# Each exchange = 2 messages (user + assistant). 20 = 10 back-and-forths.
+MAX_MESSAGES = 20
+
 # ── Session state ─────────────────────────────────────────────────────────────
 
 if "messages" not in st.session_state:
@@ -198,10 +202,20 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"], **avatar_kwargs):
         st.markdown(msg["content"])
 
-# Chat input
-user_input = st.chat_input("Type your message here…")
+# Check limit
+_limit_reached = len(st.session_state.messages) >= MAX_MESSAGES
 
-if user_input:
+if _limit_reached:
+    st.markdown("""
+<div style="text-align:center;padding:1rem;margin-top:0.5rem;background:#111;border-radius:12px;color:#fff;font-size:0.875rem;">
+  You've reached the message limit for this session. Refresh the page to start a new conversation.
+</div>
+""", unsafe_allow_html=True)
+
+# Chat input — disabled once limit is reached
+user_input = st.chat_input("Type your message here…", disabled=_limit_reached)
+
+if user_input and not _limit_reached:
     # Show user message immediately
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
