@@ -1,6 +1,8 @@
 """Deployment Strategy Assistant — web chat interface."""
 
 import base64
+import csv
+import datetime
 import os
 import streamlit as st
 import anthropic
@@ -73,6 +75,38 @@ st.markdown("""
   [data-testid="stChatInput"] textarea:focus {
     border-color: #000000 !important;
     box-shadow: 0 0 0 3px rgba(0,0,0,0.15) !important;
+  }
+
+  /* Starter prompt chips */
+  div[data-testid="stHorizontalBlock"] [data-testid="stBaseButton-secondary"] {
+    border-radius: 20px !important;
+    border: 1.5px solid rgba(0,0,0,0.35) !important;
+    background: rgba(255,255,255,0.75) !important;
+    color: #111 !important;
+    font-size: 0.82rem !important;
+    padding: 0.4rem 0.9rem !important;
+    text-align: left !important;
+    transition: background 0.15s, color 0.15s !important;
+  }
+  div[data-testid="stHorizontalBlock"] [data-testid="stBaseButton-secondary"]:hover {
+    background: #111 !important;
+    color: #DCED4B !important;
+    border-color: #111 !important;
+  }
+
+  /* Feedback buttons */
+  [data-testid="stChatMessage"] [data-testid="stBaseButton-secondary"] {
+    border-radius: 20px !important;
+    border: 1px solid rgba(0,0,0,0.2) !important;
+    background: transparent !important;
+    color: #555 !important;
+    font-size: 0.72rem !important;
+    padding: 0.15rem 0.6rem !important;
+    min-height: unset !important;
+  }
+  [data-testid="stChatMessage"] [data-testid="stBaseButton-secondary"]:hover {
+    background: rgba(0,0,0,0.06) !important;
+    color: #111 !important;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -184,6 +218,14 @@ USER: "Nothing/That's it"
 ASSISTANT: "Thanks, hope that helped! Have a great rest of your day. Bye!"
 """
 
+# ── Starter prompts ───────────────────────────────────────────────────────────
+STARTER_PROMPTS = [
+    "What's the deployment process?",
+    "Who's staffed to my project?",
+    "What does the DS team own?",
+    "How do I escalate an issue?",
+]
+
 # ── Load knowledge base ───────────────────────────────────────────────────────
 
 @st.cache_resource(show_spinner="Loading knowledge base…")
@@ -192,6 +234,20 @@ def load_knowledge_base() -> str:
     kb_path = os.path.join(os.path.dirname(__file__), "documents", "knowledge_base.txt")
     with open(kb_path, encoding="utf-8") as f:
         return f.read()
+
+def kb_last_updated() -> str:
+    kb_path = os.path.join(os.path.dirname(__file__), "documents", "knowledge_base.txt")
+    try:
+        mtime = os.path.getmtime(kb_path)
+        return datetime.datetime.fromtimestamp(mtime).strftime("%b %d, %Y")
+    except OSError:
+        return "unknown"
+
+def log_feedback(msg_idx: int, sentiment: str, content: str) -> None:
+    log_path = os.path.join(os.path.dirname(__file__), "documents", "feedback_log.csv")
+    with open(log_path, "a", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow([datetime.datetime.now().isoformat(), sentiment, content[:300]])
 
 # ── Anthropic client ──────────────────────────────────────────────────────────
 
@@ -208,6 +264,8 @@ MAX_MESSAGES = 20
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
+if "feedback" not in st.session_state:
+    st.session_state.feedback = {}
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 
@@ -218,12 +276,14 @@ if _b64:
 else:
     _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
 
+_kb_date = kb_last_updated()
 st.markdown(f"""
 <div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 1.25rem 0;border-bottom:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;">
   {_avatar_html}
   <div style="min-width:0;">
     <div style="font-size:1.25rem;font-weight:700;color:#000;letter-spacing:-0.02em;line-height:1.2;">RobBot</div>
     <div style="font-size:0.8rem;color:#444;margin-top:3px;line-height:1.3;">Your Deployment Strategy assistant at PolyAI</div>
+    <div style="font-size:0.7rem;color:#777;margin-top:2px;">KB updated {_kb_date}</div>
   </div>
   <div style="margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;">
     <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
@@ -234,14 +294,32 @@ st.markdown(f"""
 
 # Render conversation history
 _avatar = load_avatar()
-for msg in st.session_state.messages:
+for _i, msg in enumerate(st.session_state.messages):
     avatar = _avatar if msg["role"] == "assistant" and _avatar else None
     avatar_kwargs = {"avatar": avatar} if avatar is not None else {}
     with st.chat_message(msg["role"], **avatar_kwargs):
         st.markdown(msg["content"])
+        if msg["role"] == "assistant":
+            _existing_fb = st.session_state.feedback.get(_i)
+            if _existing_fb:
+                st.caption("Helpful ✓" if _existing_fb == "up" else "Not helpful — noted")
+            else:
+                _fc1, _fc2, _fc3 = st.columns([1.2, 1.8, 8])
+                with _fc1:
+                    if st.button("Helpful", key=f"up_{_i}"):
+                        st.session_state.feedback[_i] = "up"
+                        log_feedback(_i, "up", msg["content"])
+                        st.rerun()
+                with _fc2:
+                    if st.button("Not helpful", key=f"down_{_i}"):
+                        st.session_state.feedback[_i] = "down"
+                        log_feedback(_i, "down", msg["content"])
+                        st.rerun()
 
 # Check limit
-_limit_reached = len(st.session_state.messages) >= MAX_MESSAGES
+_msg_count = len(st.session_state.messages)
+_limit_reached = _msg_count >= MAX_MESSAGES
+_nearing_limit = not _limit_reached and _msg_count >= 16
 
 if _limit_reached:
     st.markdown("""
@@ -249,9 +327,29 @@ if _limit_reached:
   You've reached the message limit for this session. Refresh the page to start a new conversation.
 </div>
 """, unsafe_allow_html=True)
+elif _nearing_limit:
+    _remaining = MAX_MESSAGES - _msg_count
+    st.markdown(f"""
+<div style="text-align:center;padding:0.6rem 1rem;margin-top:0.25rem;background:rgba(0,0,0,0.06);border-radius:10px;color:#555;font-size:0.8rem;border:1px solid rgba(0,0,0,0.1);">
+  {_remaining} message{'s' if _remaining != 1 else ''} left in this session — wrap up or refresh to start fresh.
+</div>
+""", unsafe_allow_html=True)
+
+# Starter prompt chips — only shown before the first message
+if not st.session_state.messages:
+    st.markdown('<div style="font-size:0.8rem;color:#555;margin:0.75rem 0 0.4rem 0;font-weight:500;">Try asking:</div>', unsafe_allow_html=True)
+    _sc = st.columns(2)
+    for _si, _sp in enumerate(STARTER_PROMPTS):
+        if _sc[_si % 2].button(_sp, key=f"starter_{_si}", use_container_width=True):
+            st.session_state["_pending_starter"] = _sp
+            st.rerun()
 
 # Chat input — disabled once limit is reached
 user_input = st.chat_input(disabled=_limit_reached)
+
+# Pick up a starter chip click if no direct input
+if not user_input and "_pending_starter" in st.session_state:
+    user_input = st.session_state.pop("_pending_starter")
 
 if user_input and not _limit_reached:
     # Show user message immediately
