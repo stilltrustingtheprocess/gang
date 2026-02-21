@@ -16,72 +16,84 @@ st.markdown("""
   /* Hide default Streamlit chrome */
   #MainMenu, footer, header { visibility: hidden; }
 
-  /* Page background */
-  .stApp { background-color: #f5f5f5; }
+  /* Lime green background */
+  .stApp { background-color: #DCED4B; }
 
-  /* Centre column max-width */
+  /* Centre column */
   .block-container {
     max-width: 760px;
     padding-top: 2rem;
     padding-bottom: 1rem;
   }
 
-  /* Title */
+  /* Title — black on lime */
   h1 {
     font-size: 1.6rem !important;
     font-weight: 700 !important;
     letter-spacing: -0.02em;
-    color: #111 !important;
+    color: #000000 !important;
+  }
+
+  /* Accent bar under title */
+  h1::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 40px;
+    background: #000000;
+    border-radius: 2px;
+    margin-top: 6px;
   }
 
   /* Caption */
   .stCaption p {
-    color: #666 !important;
+    color: #333333 !important;
     font-size: 0.85rem !important;
     margin-top: -0.4rem;
   }
 
-  /* Chat message bubbles */
+  /* Assistant bubble — white card */
   [data-testid="stChatMessage"] {
-    background: #fff;
+    background: #ffffff;
     border-radius: 14px;
-    border: 1px solid #e8e8e8;
+    border: 1px solid rgba(0,0,0,0.1);
     padding: 0.75rem 1rem !important;
     margin-bottom: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
   }
 
-  /* User bubble slightly tinted */
+  /* User bubble — black card with white text */
   [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) {
-    background: #eef2ff;
-    border-color: #dde3f8;
+    background: #111111;
+    border-color: #000000;
+  }
+  [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) p,
+  [data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) .stMarkdown {
+    color: #ffffff !important;
   }
 
   /* Input box */
   [data-testid="stChatInput"] textarea {
     border-radius: 12px !important;
-    border: 1px solid #ddd !important;
-    background: #fff !important;
+    border: 2px solid #000000 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     font-size: 0.95rem !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
   }
   [data-testid="stChatInput"] textarea:focus {
-    border-color: #7c6ef7 !important;
-    box-shadow: 0 0 0 3px rgba(124,110,247,0.12) !important;
-  }
-
-  /* Divider below header */
-  h1::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 40px;
-    background: #7c6ef7;
-    border-radius: 2px;
-    margin-top: 6px;
+    border-color: #000000 !important;
+    box-shadow: 0 0 0 3px rgba(0,0,0,0.15) !important;
   }
 </style>
 """, unsafe_allow_html=True)
+
+# ── Avatar (drop assets/avatar.png into the project to use it) ────────────────
+@st.cache_resource
+def load_avatar():
+    from PIL import Image
+    path = os.path.join(os.path.dirname(__file__), "assets", "avatar.png")
+    return Image.open(path) if os.path.exists(path) else None
 
 # ── System prompt (agent rules) ───────────────────────────────────────────────
 SYSTEM_PROMPT = """# WHO YOU ARE
@@ -166,8 +178,11 @@ st.title("Rob Bot")
 st.caption("Ask me anything about the Deployment Strategist role or anything about our deployments and operations!")
 
 # Render conversation history
+_avatar = load_avatar()
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
+    avatar = _avatar if msg["role"] == "assistant" and _avatar else None
+    avatar_kwargs = {"avatar": avatar} if avatar is not None else {}
+    with st.chat_message(msg["role"], **avatar_kwargs):
         st.markdown(msg["content"])
 
 # Chat input
@@ -199,7 +214,8 @@ if user_input:
     ]
 
     # Stream the assistant reply
-    with st.chat_message("assistant"):
+    avatar_kwargs = {"avatar": _avatar} if _avatar is not None else {}
+    with st.chat_message("assistant", **avatar_kwargs):
         response_placeholder = st.empty()
         full_response = ""
 
