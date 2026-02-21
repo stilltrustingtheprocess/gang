@@ -76,11 +76,10 @@ def main():
         messages.append({"role": "user", "content": user_input})
 
         with client.messages.stream(
-            model="claude-opus-4-6",
-            max_tokens=1024,
-            thinking={"type": "adaptive"},
+            model="claude-haiku-4-5-20251001",
+            max_tokens=512,
             system=SYSTEM_PROMPT,
-            messages=messages,
+            messages=messages[-10:],
         ) as stream:
             print("Assistant: ", end="", flush=True)
             response_text = ""
