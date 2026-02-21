@@ -140,7 +140,6 @@ if user_input:
         with client.messages.stream(
             model="claude-opus-4-6",
             max_tokens=1024,
-            thinking={"type": "adaptive"},
             system=SYSTEM_PROMPT,
             messages=api_messages,
         ) as stream:
