@@ -358,8 +358,8 @@ if user_input and not _limit_reached:
     kb_text = load_knowledge_base()
     client = get_client()
 
-    # Only send the last 20 messages to keep costs down
-    recent_messages = st.session_state.messages[-20:]
+    # Only send the last 8 messages to keep costs down
+    recent_messages = st.session_state.messages[-8:]
     api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
 
     system_with_kb = [
@@ -379,7 +379,7 @@ if user_input and not _limit_reached:
 
         with client.messages.stream(
             model="claude-haiku-4-5-20251001",
-            max_tokens=1024,
+            max_tokens=512,
             system=system_with_kb,
             messages=api_messages,
             extra_headers={"anthropic-beta": "prompt-caching-2024-07-31"},
