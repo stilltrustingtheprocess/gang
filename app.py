@@ -359,8 +359,8 @@ if user_input and not _limit_reached:
     kb_text = load_knowledge_base()
     client = get_client()
 
-    # Only send the last 8 messages to keep costs down
-    recent_messages = st.session_state.messages[-8:]
+    # Only send the last 4 messages to keep costs down
+    recent_messages = st.session_state.messages[-4:]
     api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
 
     system_with_kb = [
