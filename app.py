@@ -64,14 +64,19 @@ ASSISTANT: "Thanks, hope that helped! Have a great rest of your day. Bye!"
 
 # ── Load PDFs from the documents/ folder ─────────────────────────────────────
 
+MAX_PDF_BYTES = 4 * 1024 * 1024  # 4 MB per file
+
 @st.cache_resource(show_spinner="Loading knowledge base…")
 def load_documents() -> list[dict]:
-    """Read all PDFs from the documents/ folder and return as content blocks."""
+    """Read PDFs under 4 MB from the documents/ folder and return as content blocks."""
     docs_dir = os.path.join(os.path.dirname(__file__), "documents")
     pdf_paths = sorted(glob.glob(os.path.join(docs_dir, "*.pdf")))
 
     blocks = []
     for path in pdf_paths:
+        if os.path.getsize(path) > MAX_PDF_BYTES:
+            st.warning(f"Skipping {os.path.basename(path)} (too large for context window)")
+            continue
         with open(path, "rb") as f:
             data = base64.standard_b64encode(f.read()).decode("utf-8")
         blocks.append({
