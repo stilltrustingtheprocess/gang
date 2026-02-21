@@ -283,8 +283,10 @@ else:
     _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
 
 _kb_date = kb_last_updated()
-st.markdown(f"""
-<div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 1.25rem 0;border-bottom:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;">
+_hdr_col, _btn_col = st.columns([6, 1])
+with _hdr_col:
+    st.markdown(f"""
+<div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 0.75rem 0;">
   {_avatar_html}
   <div style="min-width:0;">
     <div style="font-size:1.45rem;font-weight:700;color:#000;letter-spacing:-0.02em;line-height:1.2;">RobBot</div>
@@ -293,9 +295,22 @@ st.markdown(f"""
   </div>
 </div>
 """, unsafe_allow_html=True)
+with _btn_col:
+    if st.session_state.get("messages"):
+        if st.button("↺ New chat", key="reset", use_container_width=True):
+            st.session_state.messages = []
+            st.session_state.feedback = {}
+            st.session_state.pop("_pending_starter", None)
+            st.rerun()
+st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;"></div>', unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
+_last_assistant_idx = next(
+    (_i for _i in range(len(st.session_state.messages) - 1, -1, -1)
+     if st.session_state.messages[_i]["role"] == "assistant"),
+    -1,
+)
 for _i, msg in enumerate(st.session_state.messages):
     avatar = _avatar if msg["role"] == "assistant" and _avatar else None
     avatar_kwargs = {"avatar": avatar} if avatar is not None else {}
@@ -305,7 +320,7 @@ for _i, msg in enumerate(st.session_state.messages):
             _existing_fb = st.session_state.feedback.get(_i)
             if _existing_fb:
                 st.caption("Helpful ✓" if _existing_fb == "up" else "Not helpful — noted")
-            else:
+            elif _i == _last_assistant_idx:
                 _fc1, _fc2, _fc3 = st.columns([1.2, 1.8, 8])
                 with _fc1:
                     if st.button("Helpful", key=f"up_{_i}"):
@@ -363,8 +378,8 @@ if user_input and not _limit_reached:
     kb_text = load_knowledge_base()
     client = get_client()
 
-    # Only send the last 4 messages to keep costs down
-    recent_messages = st.session_state.messages[-4:]
+    # Only send the last 8 messages to keep costs down
+    recent_messages = st.session_state.messages[-8:]
     api_messages = [{"role": m["role"], "content": m["content"]} for m in recent_messages]
 
     system_with_kb = [
@@ -380,6 +395,7 @@ if user_input and not _limit_reached:
     avatar_kwargs = {"avatar": _avatar} if _avatar is not None else {}
     with st.chat_message("assistant", **avatar_kwargs):
         response_placeholder = st.empty()
+        response_placeholder.markdown("*...*")
         full_response = ""
 
         with client.messages.stream(
@@ -391,7 +407,6 @@ if user_input and not _limit_reached:
         ) as stream:
             for text in stream.text_stream:
                 full_response += text
-                response_placeholder.markdown(full_response + "▌")
-            response_placeholder.markdown(full_response)
+                response_placeholder.markdown(full_response)
 
     st.session_state.messages.append({"role": "assistant", "content": full_response})
