@@ -47,14 +47,28 @@ st.markdown("""
     color: #ffffff !important;
   }
 
-  /* Input box */
+  /* Input box — strip Streamlit's outer white container */
+  [data-testid="stChatInput"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  [data-testid="stChatInput"] > div {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
   [data-testid="stChatInput"] textarea {
     border-radius: 12px !important;
     border: 2px solid #000000 !important;
     background: #ffffff !important;
     color: #000000 !important;
     font-size: 0.95rem !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+    box-shadow: none !important;
+  }
+  [data-testid="stChatInput"] textarea::placeholder {
+    color: transparent !important;
   }
   [data-testid="stChatInput"] textarea:focus {
     border-color: #000000 !important;
