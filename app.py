@@ -262,6 +262,16 @@ def get_client() -> anthropic.Anthropic:
     api_key = os.environ.get("ANTHROPIC_API_KEY", "")
     return anthropic.Anthropic(api_key=api_key)
 
+
+def export_conversation() -> str:
+    """Format the current conversation as a markdown string for download."""
+    from datetime import date
+    lines = [f"# RobBot Conversation — {date.today().isoformat()}\n"]
+    for msg in st.session_state.messages:
+        label = "**You**" if msg["role"] == "user" else "**RobBot**"
+        lines.append(f"{label}\n\n{msg['content']}\n\n---\n")
+    return "\n".join(lines)
+
 # ── Conversation limit ────────────────────────────────────────────────────────
 # Each exchange = 2 messages (user + assistant). 20 = 10 back-and-forths.
 MAX_MESSAGES = 20
@@ -283,7 +293,7 @@ else:
     _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
 
 _kb_date = kb_last_updated()
-_hdr_col, _btn_col = st.columns([6, 1])
+_hdr_col, _export_col, _btn_col = st.columns([5, 1, 1])
 with _hdr_col:
     st.markdown(f"""
 <div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 0.75rem 0;">
@@ -295,6 +305,15 @@ with _hdr_col:
   </div>
 </div>
 """, unsafe_allow_html=True)
+with _export_col:
+    if st.session_state.get("messages"):
+        st.download_button(
+            "⬇ Export",
+            data=export_conversation(),
+            file_name="robbot_conversation.md",
+            mime="text/markdown",
+            use_container_width=True,
+        )
 with _btn_col:
     if st.session_state.get("messages"):
         if st.button("↺ New chat", key="reset", use_container_width=True):
@@ -303,6 +322,13 @@ with _btn_col:
             st.session_state.pop("_pending_starter", None)
             st.rerun()
 st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;"></div>', unsafe_allow_html=True)
+
+# Token-limit disclaimer
+st.markdown("""
+<div style="font-size:0.75rem;color:#666;background:rgba(0,0,0,0.04);border-radius:8px;padding:0.5rem 0.75rem;margin-bottom:0.75rem;border-left:3px solid rgba(0,0,0,0.2);">
+  <strong>Heads up:</strong> Responses are capped at ~512 tokens (~380 words). Asking for very long outputs — e.g. full scripts or documents — may result in truncated or cut-off replies. Break large requests into smaller steps if needed.
+</div>
+""", unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
