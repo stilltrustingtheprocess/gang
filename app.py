@@ -283,7 +283,7 @@ else:
     _avatar_html = '<div style="width:52px;height:52px;border-radius:50%;background:#000;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#DCED4B;flex-shrink:0;">R</div>'
 
 _kb_date = kb_last_updated()
-_hdr_col, _btn_col = st.columns([6, 1])
+_hdr_col, _export_col, _btn_col = st.columns([6, 1.4, 1.2])
 with _hdr_col:
     st.markdown(f"""
 <div style="display:flex;align-items:center;gap:14px;padding:0.5rem 0 0.75rem 0;">
@@ -295,6 +295,21 @@ with _hdr_col:
   </div>
 </div>
 """, unsafe_allow_html=True)
+with _export_col:
+    if st.session_state.get("messages"):
+        _export_lines = []
+        for _m in st.session_state.messages:
+            _speaker = "RobBot" if _m["role"] == "assistant" else "You"
+            _export_lines.append(f"{_speaker}:\n{_m['content']}\n")
+        _export_text = "\n".join(_export_lines)
+        st.download_button(
+            label="⬇ Export",
+            data=_export_text,
+            file_name="robbot_chat.txt",
+            mime="text/plain",
+            use_container_width=True,
+            key="export_chat",
+        )
 with _btn_col:
     if st.session_state.get("messages"):
         if st.button("↺ New chat", key="reset", use_container_width=True):
@@ -303,6 +318,13 @@ with _btn_col:
             st.session_state.pop("_pending_starter", None)
             st.rerun()
 st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;"></div>', unsafe_allow_html=True)
+
+# ── Token limit disclaimer ────────────────────────────────────────────────────
+st.markdown("""
+<div style="background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.12);border-radius:10px;padding:0.55rem 0.85rem;margin-bottom:1rem;font-size:0.75rem;color:#555;line-height:1.5;">
+  <strong>Heads up:</strong> Responses are capped at 512 tokens — if you ask for something very long or detailed, the reply may get cut off. Keep questions focused for best results.
+</div>
+""", unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
