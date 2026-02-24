@@ -342,12 +342,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Token limit disclaimer ────────────────────────────────────────────────────
-st.markdown("""
-<div style="background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.12);border-radius:10px;padding:0.55rem 0.85rem;margin-bottom:1rem;font-size:0.75rem;color:#555;line-height:1.5;">
-  <strong>Heads up:</strong> Responses are capped at 512 tokens — if you ask for something very long or detailed, the reply may get cut off. Keep questions focused for best results.
-</div>
-""", unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
