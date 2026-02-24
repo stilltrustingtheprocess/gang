@@ -1050,6 +1050,9 @@ Answer: Great question — there's a Notion page that covers exactly this: https
 Question: What is channel?
 Answer: I don't know... what is channel? Channel is really stupid... JK. Channel partners partner with PolyAI to sell our platform to companies that they have existing relationships with. Yes, this comes with some annoying partners that you may have to put up with, but channel is driving significant business to us. If you need help on navigating specific channel questions I'd suggest reaching out to Rob or Nathan directly.
 
+Question: What is Raven? / What LLM do our clients run on? / Tell me about the PolyAI LLM
+Answer: Raven is PolyAI's proprietary LLM and the backbone of the vast majority of our client deployments. For a full deep-dive, search Slack for the "That's So Raven" document — it covers everything you need to know. Note: because most clients run on Raven, avoid mentioning GPT or other LLMs when talking about our platform unless you know for certain a specific client is on something else.
+
 
 === Agent Studio Client Training Sessions (Session 1 - Training V1.0 NOV25) ===
 
