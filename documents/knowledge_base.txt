@@ -711,10 +711,10 @@ Internally Escalating
 There are many slack channels for escalating questions
 Sometimes you or an engineer might meet the end of the road in solving a client problem. Look to the right team to
 help.
-#DSs-internal, to chat to just the DSs #ask-agent-studio, for questions or problems with the Agent Studio web app
-#ask-voice, for things related to the voice team, such as latency, speech recognition or speech synthesis
+#ds-internal, to chat to just the DSs #ask-agent-studio, for questions or problems with the Agent Studio web app
+#ask-runtime, for things related to the voice team, such as latency, speech recognition or speech synthesis
 #ask_legal, for questions about the contracts or permissions for your clients
-#ask-portal, is for questions about the legacy PolyAI portal for intent based agents
+#ask-agent-studio, is for questions about agent studio. You can also log bugs or feature requests there also
 #studio_or_portal_access_request, when you need to give a client access to Agent Studio
 #ask-analytics, for dashboard related queries
 
