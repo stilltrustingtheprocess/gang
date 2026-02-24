@@ -321,18 +321,6 @@ with _btn_col:
             st.session_state.feedback = {}
             st.session_state.pop("_pending_starter", None)
             st.rerun()
-        _export_lines = [f"RobBot Conversation — Exported {datetime.datetime.now().strftime('%b %d, %Y %H:%M')}\n"]
-        for _m in st.session_state.messages:
-            _label = "You" if _m["role"] == "user" else "RobBot"
-            _export_lines.append(f"{_label}:\n{_m['content']}\n")
-        _export_text = "\n".join(_export_lines)
-        st.download_button(
-            "⬇ Export",
-            data=_export_text,
-            file_name="robbot_conversation.txt",
-            mime="text/plain",
-            use_container_width=True,
-        )
 st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:0.75rem;"></div>', unsafe_allow_html=True)
 
 # Token limit disclaimer
