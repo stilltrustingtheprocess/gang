@@ -113,6 +113,31 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ── Password gate ────────────────────────────────────────────────────────────
+
+_CORRECT_PASSWORD = "RobBaronChannelPartner"
+
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.markdown("""
+<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:1rem;">
+  <div style="font-size:2rem;font-weight:700;color:#000;letter-spacing:-0.02em;">RobBot</div>
+  <div style="font-size:0.9rem;color:#555;">Enter the password to continue</div>
+</div>
+""", unsafe_allow_html=True)
+    _pw_col = st.columns([1, 2, 1])[1]
+    with _pw_col:
+        _pw_input = st.text_input("Password", type="password", label_visibility="collapsed", placeholder="Password")
+        if st.button("Unlock", use_container_width=True):
+            if _pw_input == _CORRECT_PASSWORD:
+                st.session_state.authenticated = True
+                st.rerun()
+            else:
+                st.error("Incorrect password.")
+    st.stop()
+
 # ── Avatar helpers ────────────────────────────────────────────────────────────
 def _find_avatar_path():
     base = os.path.dirname(__file__)
