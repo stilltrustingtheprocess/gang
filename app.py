@@ -302,7 +302,26 @@ with _btn_col:
             st.session_state.feedback = {}
             st.session_state.pop("_pending_starter", None)
             st.rerun()
-st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:1rem;"></div>', unsafe_allow_html=True)
+        _export_lines = [f"RobBot Conversation — Exported {datetime.datetime.now().strftime('%b %d, %Y %H:%M')}\n"]
+        for _m in st.session_state.messages:
+            _label = "You" if _m["role"] == "user" else "RobBot"
+            _export_lines.append(f"{_label}:\n{_m['content']}\n")
+        _export_text = "\n".join(_export_lines)
+        st.download_button(
+            "⬇ Export",
+            data=_export_text,
+            file_name="robbot_conversation.txt",
+            mime="text/plain",
+            use_container_width=True,
+        )
+st.markdown('<div style="border-top:1.5px solid rgba(0,0,0,0.15);margin-bottom:0.75rem;"></div>', unsafe_allow_html=True)
+
+# Token limit disclaimer
+st.markdown("""
+<div style="background:rgba(0,0,0,0.07);border-left:3px solid rgba(0,0,0,0.3);border-radius:0 6px 6px 0;padding:0.45rem 0.75rem;margin-bottom:0.75rem;font-size:0.74rem;color:#555;">
+  <strong>Heads up:</strong> RobBot generates up to 512 tokens (~380 words) per reply. Asking for very long or detailed answers may produce cut-off responses — keep questions focused for best results.
+</div>
+""", unsafe_allow_html=True)
 
 # Render conversation history
 _avatar = load_avatar()
