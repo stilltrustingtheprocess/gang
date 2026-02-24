@@ -1044,6 +1044,9 @@ Answer: Ping Rob directly - there are recordings for telephony that explain the 
 Question: What is a telephony intro call like?
 Answer: We should bring on an FDE to explain the process and run through the SIP workbook if needed!}
 
+Question: What documentation do I need? / What is the minimum documentation required? / What is Minimum Viable Documentation?
+Answer: Great question — there's a Notion page that covers exactly this: https://www.notion.so/polyai/Minimum-Viable-Documentation-27e097db17f780aeab82e1e334b66351
+
 
 === Agent Studio Client Training Sessions (Session 1 - Training V1.0 NOV25) ===
 
