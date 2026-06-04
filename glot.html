@@ -1,0 +1,1202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLOT — Smart where you already work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Fredoka:wght@400;500;600;700&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --glot:       #c2ff1f;
+  --glot-deep:  #7fb50d;
+  --glot-glow:  #d6ff5a;
+  --ink:        #07090a;
+  --ink-2:      #0e1209;
+  --paper:      #f3f6ea;
+  --muted:      #93a08c;
+  --aubergine:  #4a154b;
+  --aubergine-2:#611f64;
+  --slk-pink:   #e01e5a;
+  --slk-blue:   #36c5f0;
+  --slk-green:  #2eb67d;
+  --slk-gold:   #ecb22e;
+  --cine:       #ffd400;
+  --r: 18px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity}
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:"Sora",sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--glot);color:var(--ink)}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:100;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;
+}
+
+/* ── MUSIC GATE ── */
+#gate{
+  position:fixed;inset:0;z-index:200;
+  background:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+#gate.gone{opacity:0;visibility:hidden;pointer-events:none}
+.gate-logo{
+  font-family:"Anton";font-size:clamp(5rem,20vw,11rem);letter-spacing:3px;
+  background:linear-gradient(180deg,#fff,var(--glot) 70%,var(--glot-deep));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 60px rgba(194,255,31,.4));
+  animation:gatepulse 2.4s ease-in-out infinite;
+}
+@keyframes gatepulse{0%,100%{filter:drop-shadow(0 0 40px rgba(194,255,31,.25))}
+50%{filter:drop-shadow(0 0 80px rgba(194,255,31,.6))}}
+.gate-sub{font-family:"Fredoka";font-size:1.1rem;color:var(--muted);letter-spacing:.05em}
+.enter-btn{
+  margin-top:10px;
+  font-family:"Fredoka";font-weight:600;font-size:1rem;letter-spacing:.18em;text-transform:uppercase;
+  border:1.5px solid rgba(194,255,31,.5);background:transparent;color:var(--glot);
+  border-radius:100px;padding:14px 36px;cursor:pointer;
+  transition:background .25s,color .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.enter-btn::before{
+  content:"";position:absolute;inset:0;
+  background:var(--glot);transform:scaleX(0);transform-origin:left;
+  transition:transform .3s ease;
+}
+.enter-btn:hover::before{transform:scaleX(1)}
+.enter-btn:hover{color:var(--ink)}
+.enter-btn span{position:relative;z-index:1}
+.sound-note{font-size:.72rem;color:var(--muted);opacity:.6;letter-spacing:.12em;text-transform:uppercase}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.eyebrow{
+  font-family:"Sora";font-weight:600;letter-spacing:.34em;text-transform:uppercase;
+  font-size:.68rem;color:var(--glot);
+}
+h2.sec{
+  font-family:"Anton";font-weight:400;letter-spacing:.5px;line-height:.92;
+  font-size:clamp(2.2rem,5vw,3.8rem);text-transform:uppercase;margin:.3em 0 .15em;
+}
+h2.sec em{font-style:normal;color:var(--cine)}
+.lead{color:var(--muted);max-width:52ch;font-weight:300;font-size:1.05rem}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(194,255,31,.2),transparent)}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal.delay-1{transition-delay:.15s}
+.reveal.delay-2{transition-delay:.3s}
+.reveal.delay-3{transition-delay:.45s}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;position:relative;overflow:hidden;
+  padding:100px 0 60px;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 65% 50%,rgba(194,255,31,.07) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 80% at 10% 90%,rgba(74,21,75,.5) 0%,transparent 55%);
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;position:relative;z-index:2}
+@media(max-width:820px){.hero-grid{grid-template-columns:1fr;text-align:center}}
+
+.hero-badge{
+  display:inline-flex;gap:8px;align-items:center;
+  border:1px solid rgba(194,255,31,.3);border-radius:100px;
+  padding:7px 16px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--glot);background:rgba(194,255,31,.04);
+  margin-bottom:20px;
+}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--glot);
+  box-shadow:0 0 12px var(--glot);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--glot)}50%{opacity:.3;box-shadow:0 0 3px var(--glot)}}
+
+.wordmark{
+  font-family:"Anton";font-size:clamp(5.5rem,14vw,10rem);line-height:.82;letter-spacing:2px;
+  text-transform:uppercase;
+  background:linear-gradient(170deg,#fff 0%,var(--glot) 60%,var(--glot-deep) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 40px rgba(194,255,31,.3));
+}
+.hero-tag{font-family:"Fredoka";font-weight:500;color:var(--paper);opacity:.8;
+  font-size:clamp(1.1rem,2.5vw,1.5rem);letter-spacing:.3px;margin:14px 0 28px}
+.hero-tag b{color:var(--cine)}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:820px){.cta-row{justify-content:center}}
+.btn{
+  font-family:"Fredoka";font-weight:600;font-size:.95rem;border-radius:100px;
+  padding:13px 30px;cursor:pointer;border:none;letter-spacing:.04em;
+  transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--glot);color:var(--ink);
+  box-shadow:0 6px 30px rgba(194,255,31,.3)}
+.btn-primary:hover{box-shadow:0 10px 40px rgba(194,255,31,.5)}
+.btn-ghost{background:transparent;color:var(--paper);border:1.5px solid rgba(255,255,255,.2)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.5)}
+
+/* Hero mascot stage */
+.hero-stage{position:relative;display:grid;place-items:center}
+.hero-halo{
+  position:absolute;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(194,255,31,.16) 0%,transparent 65%);
+  filter:blur(8px);animation:breathe 5s ease-in-out infinite;
+}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+.hero-ring{
+  position:absolute;width:320px;height:320px;border-radius:50%;
+  border:1px solid rgba(194,255,31,.15);animation:spin-ring 18s linear infinite;
+}
+.hero-ring::before{
+  content:"";position:absolute;top:-5px;left:50%;width:10px;height:10px;
+  border-radius:50%;background:var(--glot);transform:translateX(-50%);
+  box-shadow:0 0 12px var(--glot);
+}
+@keyframes spin-ring{to{transform:rotate(360deg)}}
+
+/* floating notification pills */
+.notif{
+  position:absolute;border-radius:14px;padding:8px 13px;
+  background:rgba(26,29,33,.92);border:1px solid rgba(255,255,255,.1);
+  font-size:.72rem;font-family:"Fredoka";font-weight:500;
+  backdrop-filter:blur(8px);white-space:nowrap;
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+  animation:floatnotif 6s ease-in-out infinite;
+}
+.notif-1{top:12%;right:-20px;animation-delay:0s}
+.notif-2{bottom:22%;right:-30px;animation-delay:1.8s}
+.notif-3{top:28%;left:-40px;animation-delay:.9s}
+@keyframes floatnotif{0%,100%{transform:translateY(0);opacity:.9}50%{transform:translateY(-8px);opacity:1}}
+.notif .ch{color:var(--slk-gold)}
+.notif .tag{display:inline-block;background:rgba(194,255,31,.12);color:var(--glot);
+  border-radius:6px;padding:0 6px;font-size:.66rem;margin-left:4px}
+
+/* GLOT MASCOT */
+.glot-svg{display:block;overflow:visible}
+.g-float{animation:bob 3.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.g-eye{transform-box:fill-box;transform-origin:center;animation:blink 6.2s infinite}
+.g-eye.r{animation-delay:.05s}
+@keyframes blink{0%,7%,100%{transform:scaleY(1)}3.5%{transform:scaleY(.07)}}
+.g-arm-wave{transform-box:fill-box;transform-origin:18% 12%;animation:wave 3.4s ease-in-out infinite}
+@keyframes wave{0%,60%,100%{transform:rotate(0deg)}68%{transform:rotate(-18deg)}76%{transform:rotate(9deg)}84%{transform:rotate(-13deg)}92%{transform:rotate(0deg)}}
+.g-antenna{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4.2s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(6deg)}}
+
+
+/* ══════════════════════════════════════════
+   SLACK SCENES SECTION
+══════════════════════════════════════════ */
+#scenes{padding:100px 0}
+.scenes-header{margin-bottom:60px}
+
+.channel-demo{
+  display:grid;grid-template-columns:220px 1fr;
+  border-radius:20px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  background:#1a1d21;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+  margin-bottom:50px;min-height:380px;
+  opacity:0;transform:translateY(40px);
+  transition:opacity .9s ease, transform .9s ease;
+}
+.channel-demo.visible{opacity:1;transform:translateY(0)}
+@media(max-width:700px){.channel-demo{grid-template-columns:1fr}}
+
+/* Sidebar */
+.slack-sidebar{
+  background:#19171d;border-right:1px solid rgba(255,255,255,.06);
+  padding:18px 0;
+}
+.slack-ws{
+  padding:0 14px 14px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.ws-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:linear-gradient(135deg,var(--aubergine),var(--aubergine-2));
+  display:grid;place-items:center;font-family:"Anton";font-size:.9rem;color:#fff;
+}
+.ws-name{font-family:"Fredoka";font-weight:600;font-size:.9rem;color:#fff}
+.sidebar-label{
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);padding:0 14px 8px;font-weight:600;
+}
+.sidebar-ch{
+  padding:4px 14px;font-size:.82rem;color:rgba(255,255,255,.45);
+  font-family:"Fredoka";font-weight:500;display:flex;align-items:center;gap:7px;
+  cursor:pointer;transition:background .15s;border-radius:0;
+}
+.sidebar-ch:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.7)}
+.sidebar-ch.active{background:rgba(255,255,255,.1);color:#fff}
+.sidebar-ch .hash{opacity:.5}
+.sidebar-ch .unread{
+  margin-left:auto;background:var(--slk-pink);color:#fff;
+  border-radius:10px;padding:0 6px;font-size:.6rem;font-family:"Sora";
+}
+.glot-online{
+  margin-top:14px;padding:8px 14px;display:flex;align-items:center;gap:8px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.av-tiny{
+  width:28px;height:28px;border-radius:7px;flex:none;
+  background:radial-gradient(circle at 40% 30%,var(--glot-glow),var(--glot) 55%,var(--glot-deep));
+  display:grid;place-items:center;overflow:hidden;position:relative;
+}
+.av-tiny::after{
+  content:"";position:absolute;bottom:0;right:0;
+  width:8px;height:8px;border-radius:50%;background:#2eb67d;
+  border:1.5px solid #19171d;
+}
+.av-tiny-name{font-family:"Fredoka";font-size:.78rem;color:#fff}
+.av-tiny-status{font-size:.62rem;color:var(--slk-green)}
+
+/* Chat area */
+.slack-chat{display:flex;flex-direction:column}
+.chat-header{
+  padding:14px 20px;border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:10px;
+}
+.chat-header .ch-name{font-family:"Fredoka";font-weight:600;color:#fff;font-size:1rem}
+.chat-header .ch-desc{font-size:.76rem;color:rgba(255,255,255,.35);margin-left:2px}
+.chat-header .members{margin-left:auto;font-size:.72rem;color:rgba(255,255,255,.3)}
+.chat-body{flex:1;padding:20px;overflow:hidden;display:flex;flex-direction:column;gap:4px}
+
+.msg-row{display:flex;gap:10px;align-items:flex-start;padding:4px 0}
+.av{
+  width:36px;height:36px;border-radius:9px;flex:none;
+  display:grid;place-items:center;font-size:.7rem;font-weight:700;
+}
+.av-glot{
+  background:radial-gradient(circle at 40% 30%,var(--glot-glow),var(--glot) 55%,var(--glot-deep));
+}
+.av-human{background:linear-gradient(135deg,#36c5f0,#2eb67d)}
+.av-human2{background:linear-gradient(135deg,#e01e5a,#ecb22e)}
+.msg-content .name{
+  font-family:"Fredoka";font-weight:600;font-size:.82rem;color:#fff;
+  margin-bottom:2px;display:flex;align-items:center;gap:8px;
+}
+.name .app-tag{
+  font-size:.58rem;background:rgba(255,255,255,.12);color:rgba(255,255,255,.5);
+  border-radius:3px;padding:1px 5px;font-family:"Sora";font-weight:600;letter-spacing:.04em;
+}
+.name .time{font-size:.62rem;color:rgba(255,255,255,.25);font-weight:400;font-family:"Sora"}
+.msg-text{font-size:.82rem;color:var(--paper);line-height:1.55}
+.msg-text .mention{color:var(--slk-blue);background:rgba(54,197,240,.1);border-radius:4px;padding:0 3px}
+.msg-text .cmd{color:var(--cine);font-family:monospace;background:rgba(255,212,0,.08);
+  border-radius:4px;padding:0 4px;font-size:.78rem}
+.reactions{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.rx{
+  font-size:.72rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.7);border-radius:16px;padding:2px 8px;
+  display:inline-flex;align-items:center;gap:4px;
+  animation:rxpop .4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes rxpop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* summary card inside chat */
+.glot-card{
+  background:rgba(194,255,31,.05);border:1px solid rgba(194,255,31,.2);
+  border-left:3px solid var(--glot);border-radius:12px;
+  padding:12px 16px;margin:4px 0;font-size:.8rem;
+  animation:cardin .5s ease both;
+}
+@keyframes cardin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.glot-card .card-title{
+  font-family:"Fredoka";font-weight:600;color:var(--glot);
+  font-size:.84rem;margin-bottom:8px;display:flex;align-items:center;gap:6px;
+}
+.glot-card ul{padding-left:14px;display:flex;flex-direction:column;gap:4px}
+.glot-card li{color:var(--paper);opacity:.85}
+.glot-card .tag-row{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.glot-card .atag{
+  background:rgba(54,197,240,.12);color:var(--slk-blue);
+  border:1px solid rgba(54,197,240,.25);border-radius:10px;
+  font-size:.7rem;padding:2px 8px;font-family:"Fredoka";font-weight:500;
+}
+
+/* typing indicator */
+.typing-wrap{display:flex;gap:10px;align-items:center;padding:4px 0;opacity:0;transition:opacity .3s}
+.typing-wrap.show{opacity:1}
+.typing-dots{display:inline-flex;gap:4px;align-items:center;height:16px}
+.typing-dots b{
+  width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.35);
+  animation:typedot 1.2s infinite;display:block;
+}
+.typing-dots b:nth-child(2){animation-delay:.18s}
+.typing-dots b:nth-child(3){animation-delay:.36s}
+@keyframes typedot{0%,60%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+.typing-label{font-size:.72rem;color:rgba(255,255,255,.3);font-style:italic}
+
+/* chat input bar */
+.chat-input{
+  margin:10px 20px 16px;border-radius:10px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  padding:10px 14px;display:flex;align-items:center;gap:10px;
+}
+.chat-input-text{font-size:.8rem;color:rgba(255,255,255,.25);flex:1;font-family:"Sora"}
+.chat-input-icon{font-size:1rem;opacity:.3}
+
+/* ══════════════════════════════════════════
+   WHAT GLOT DOES (feature grid)
+══════════════════════════════════════════ */
+#features{padding:100px 0;background:linear-gradient(180deg,transparent,rgba(194,255,31,.025),transparent)}
+.features-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:50px;
+}
+@media(max-width:860px){.features-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.features-grid{grid-template-columns:1fr}}
+.feat{
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  border:1px solid rgba(255,255,255,.08);border-radius:20px;
+  padding:28px;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+}
+.feat:hover{border-color:rgba(194,255,31,.25);transform:translateY(-4px)}
+.feat::before{
+  content:"";position:absolute;inset:0;border-radius:20px;
+  background:radial-gradient(circle at 50% 0%,rgba(194,255,31,.06),transparent 60%);
+  opacity:0;transition:opacity .3s;
+}
+.feat:hover::before{opacity:1}
+.feat-icon{font-size:2rem;margin-bottom:16px;display:block}
+.feat-title{font-family:"Fredoka";font-weight:700;font-size:1.1rem;margin-bottom:8px}
+.feat-desc{font-size:.84rem;color:var(--muted);line-height:1.65}
+.feat-num{
+  position:absolute;top:18px;right:20px;font-family:"Anton";
+  font-size:2rem;color:rgba(255,255,255,.05);
+}
+
+/* ══════════════════════════════════════════
+   VISION CINEMATIC
+══════════════════════════════════════════ */
+#vision{padding:120px 0;position:relative;overflow:hidden}
+.vision-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 100% 100% at 50% 50%,rgba(74,21,75,.4),transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 20%,rgba(194,255,31,.08),transparent 50%);
+}
+.vision-inner{
+  position:relative;z-index:2;text-align:center;max-width:780px;margin:0 auto;
+}
+.vision-q{
+  font-family:"Anton";font-size:clamp(4rem,12vw,9rem);line-height:.7;
+  color:var(--glot);opacity:.2;margin-bottom:-20px;
+}
+.vision-text{
+  font-family:"Fredoka";font-weight:500;
+  font-size:clamp(1.4rem,3.5vw,2.4rem);line-height:1.4;
+  color:var(--paper);
+}
+.vision-text .hl{color:var(--cine)}
+.vision-text .gl{color:var(--glot)}
+.vision-line{
+  width:80px;height:2px;background:linear-gradient(90deg,transparent,var(--glot),transparent);
+  margin:36px auto;
+}
+.vision-sign{color:var(--muted);font-size:.85rem;letter-spacing:.12em}
+
+/* ══════════════════════════════════════════
+   TEAM
+══════════════════════════════════════════ */
+#team{padding:100px 0}
+.team-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:50px;
+}
+@media(max-width:960px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.team-grid{grid-template-columns:1fr 1fr}}
+.team-card{
+  border:1px solid rgba(255,255,255,.08);border-radius:18px;
+  padding:24px 16px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+  opacity:0;transform:translateY(30px);transition:opacity .7s ease, transform .7s ease, border-color .3s;
+}
+.team-card.visible{opacity:1;transform:translateY(0)}
+.team-card:hover{border-color:rgba(194,255,31,.3);transform:translateY(-5px) !important}
+.team-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(194,255,31,.07),transparent 55%);
+  opacity:0;transition:opacity .3s;
+}
+.team-card:hover::before{opacity:1}
+.team-avatar{
+  width:72px;height:72px;border-radius:50%;margin:0 auto 14px;
+  display:grid;place-items:center;font-family:"Anton";font-size:1.6rem;
+  border:2px solid rgba(194,255,31,.2);
+  position:relative;
+}
+.team-avatar::after{
+  content:"";position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid rgba(194,255,31,.1);
+  animation:ringpulse 3s ease-in-out infinite;
+}
+@keyframes ringpulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.06);opacity:1}}
+.t0{background:linear-gradient(135deg,#2b5a0a,#7fb50d)}
+.t1{background:linear-gradient(135deg,#1a3a5c,#36c5f0)}
+.t2{background:linear-gradient(135deg,#4a154b,#e01e5a)}
+.t3{background:linear-gradient(135deg,#5c2a1a,#ecb22e)}
+.t4{background:linear-gradient(135deg,#0a3a2a,#2eb67d)}
+.team-name{font-family:"Fredoka";font-weight:700;font-size:.95rem;color:#fff;margin-bottom:4px}
+.team-role{font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+.team-spark{
+  margin-top:12px;font-size:.72rem;color:rgba(255,255,255,.4);
+  font-style:italic;line-height:1.5;
+}
+
+/* ══════════════════════════════════════════
+   STATS TICKER
+══════════════════════════════════════════ */
+#ticker{
+  padding:28px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  background:rgba(194,255,31,.025);
+}
+.ticker-track{
+  display:flex;gap:60px;animation:ticker 18s linear infinite;white-space:nowrap;
+  font-family:"Anton";font-size:1.2rem;letter-spacing:.05em;
+}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.ticker-item{color:rgba(255,255,255,.2);flex-shrink:0}
+.ticker-item b{color:var(--glot)}
+.ticker-dot{color:rgba(194,255,31,.3)}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{padding:70px 0 50px;text-align:center;position:relative}
+.footer-logo{
+  font-family:"Anton";font-size:4rem;letter-spacing:2px;
+  background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,.06));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:16px;
+}
+footer .sub{color:var(--muted);font-size:.82rem;margin-bottom:30px}
+.footer-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* music controls */
+#music-ctrl{
+  position:fixed;bottom:24px;right:24px;z-index:50;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(7,9,10,.85);border:1px solid rgba(194,255,31,.3);
+  color:var(--glot);font-size:1.2rem;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);transition:background .2s,transform .2s;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+#music-ctrl.show{display:flex}
+#music-ctrl:hover{background:rgba(194,255,31,.15);transform:scale(1.08)}
+
+/* scroll progress bar */
+#progress{
+  position:fixed;top:0;left:0;height:2px;background:var(--glot);
+  width:0%;transition:width .1s linear;z-index:99;
+  box-shadow:0 0 8px var(--glot);
+}
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress"></div>
+
+<!-- MUSIC CONTROL -->
+<button id="music-ctrl" title="Toggle music">♪</button>
+
+<!-- ═══════════ GATE ═══════════ -->
+<div id="gate">
+  <div class="gate-logo">GLOT</div>
+  <div class="gate-sub">Smart where you already work.</div>
+  <button class="enter-btn" onclick="enterSite()"><span>▶ Enter with sound</span></button>
+  <div class="sound-note">cinematic ambient soundtrack · best with headphones</div>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge"><span class="badge-dot"></span> Now live in Slack</div>
+        <h1 class="wordmark">GLOT</h1>
+        <p class="hero-tag">The little green mind that lives in your <b>workspace.</b></p>
+        <p class="lead">Drop Glot into any Slack channel. Watch it listen, summarise, decide, and deliver — without a single tab-switch.</p>
+        <div class="cta-row" style="margin-top:30px">
+          <button class="btn btn-primary">Add to Slack</button>
+          <button class="btn btn-ghost">See it in action ↓</button>
+        </div>
+      </div>
+      <div class="hero-stage">
+        <div class="hero-halo"></div>
+        <div class="hero-ring"></div>
+        <!-- notifications floating around mascot -->
+        <div class="notif notif-1">
+          <span class="ch">#product</span> Glot just summarised 47 msgs
+          <span class="tag">✦ done</span>
+        </div>
+        <div class="notif notif-2">
+          <span class="ch">#eng</span> Glot pinged <span style="color:var(--slk-blue)">@Sarah</span>
+          <span class="tag">→ routed</span>
+        </div>
+        <div class="notif notif-3">
+          <span class="ch">#design</span> 3 decisions extracted
+          <span class="tag">✓</span>
+        </div>
+        <!-- Hero Glot mascot -->
+        <svg class="glot-svg g-float" width="260" height="280" viewBox="0 0 200 220" aria-label="Glot mascot">
+          <defs>
+            <radialGradient id="hbodyG" cx="38%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#eaffb0"/>
+              <stop offset="38%" stop-color="#c2ff1f"/>
+              <stop offset="100%" stop-color="#7fb50d"/>
+            </radialGradient>
+            <radialGradient id="hballG" cx="35%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#eaffb0"/>
+              <stop offset="100%" stop-color="#9ed414"/>
+            </radialGradient>
+            <filter id="glow"><feDropShadow dx="0" dy="8" stdDeviation="9" flood-color="#000" flood-opacity=".4"/><feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#c2ff1f" flood-opacity=".45"/></filter>
+          </defs>
+          <ellipse cx="78" cy="196" rx="15" ry="11" fill="#8bc40f"/>
+          <ellipse cx="120" cy="196" rx="15" ry="11" fill="#8bc40f"/>
+          <path d="M52 132 q-22 6 -24 30 q12 4 22 -6 q6 -12 2 -24Z" fill="url(#hbodyG)"/>
+          <g class="g-antenna">
+            <path d="M100 58 q4 -26 0 -40" stroke="#9ed414" stroke-width="7" fill="none" stroke-linecap="round"/>
+            <circle cx="100" cy="14" r="11" fill="url(#hballG)"/>
+          </g>
+          <path filter="url(#glow)" d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="url(#hbodyG)"/>
+          <ellipse cx="78" cy="96" rx="26" ry="16" fill="#fff" opacity=".22"/>
+          <g class="g-arm-wave">
+            <path d="M150 120 q34 -10 40 -42 q-14 -6 -26 6 q-12 12 -14 36Z" fill="url(#hbodyG)"/>
+          </g>
+          <circle class="g-eye l" cx="84" cy="128" r="8.5" fill="#0a0a0a"/>
+          <circle class="g-eye r" cx="116" cy="128" r="8.5" fill="#0a0a0a"/>
+          <circle cx="81" cy="125" r="2.6" fill="#fff"/>
+          <circle cx="113" cy="125" r="2.6" fill="#fff"/>
+          <g fill="#0a0a0a">
+            <circle cx="82" cy="150" r="2.1"/><circle cx="88.5" cy="155" r="2.1"/>
+            <circle cx="95.5" cy="158" r="2.1"/><circle cx="104.5" cy="158" r="2.1"/>
+            <circle cx="111.5" cy="155" r="2.1"/><circle cx="118" cy="150" r="2.1"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div id="ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ═══════════ SLACK SCENES ═══════════ -->
+<section id="scenes">
+  <div class="wrap">
+    <div class="scenes-header reveal">
+      <span class="eyebrow">01 — Glot at work</span>
+      <h2 class="sec">Three channels. <em>One Glot.</em></h2>
+      <p class="lead">Watch Glot listen, think, and deliver exactly what your team needs — right where they already are.</p>
+    </div>
+
+    <!-- DEMO 1: Product channel -->
+    <div class="channel-demo" id="demo1">
+      <div class="slack-sidebar">
+        <div class="slack-ws">
+          <div class="ws-icon">G</div>
+          <div class="ws-name">Gang HQ</div>
+        </div>
+        <div class="sidebar-label">Channels</div>
+        <div class="sidebar-ch"><span class="hash">#</span> general</div>
+        <div class="sidebar-ch active"><span class="hash">#</span> product-launch <span class="unread">47</span></div>
+        <div class="sidebar-ch"><span class="hash">#</span> design</div>
+        <div class="sidebar-ch"><span class="hash">#</span> engineering</div>
+        <div class="sidebar-ch"><span class="hash">#</span> random</div>
+        <div class="glot-online">
+          <div class="av-tiny">
+            <svg width="20" height="22" viewBox="0 0 200 220">
+              <path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/>
+            </svg>
+          </div>
+          <div>
+            <div class="av-tiny-name">Glot</div>
+            <div class="av-tiny-status">● Active</div>
+          </div>
+        </div>
+      </div>
+      <div class="slack-chat">
+        <div class="chat-header">
+          <span style="font-size:.9rem;color:rgba(255,255,255,.4)">#</span>
+          <span class="ch-name">product-launch</span>
+          <span class="ch-desc">| Q3 launch coordination</span>
+          <span class="members">12 members</span>
+        </div>
+        <div class="chat-body" id="chat1">
+          <div class="msg-row">
+            <div class="av av-human" style="font-size:.65rem;color:#fff">JA</div>
+            <div class="msg-content">
+              <div class="name">Justin A. <span class="time">9:14 AM</span></div>
+              <div class="msg-text">Okay team — anyone catch up on the last 3 days of this thread? We have a call in 20 mins 😬</div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="av av-human2" style="font-size:.65rem;color:#fff">HA</div>
+            <div class="msg-content">
+              <div class="name">Hannah A. <span class="time">9:15 AM</span></div>
+              <div class="msg-text">nope, been in back-to-back all week. <span class="mention">@Glot</span> can you catch me up?</div>
+            </div>
+          </div>
+        </div>
+        <div class="typing-wrap" id="typing1" style="padding:0 20px 8px">
+          <div class="av av-glot" style="width:28px;height:28px;border-radius:7px;flex:none"></div>
+          <div class="typing-dots"><b></b><b></b><b></b></div>
+          <div class="typing-label">Glot is reading 47 messages…</div>
+        </div>
+        <div id="glotreply1" style="padding:0 20px 8px;display:none">
+          <div class="msg-row">
+            <div class="av av-glot">
+              <svg width="22" height="24" viewBox="0 0 200 220"><path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/><circle cx="84" cy="128" r="8" fill="#0a0a0a"/><circle cx="116" cy="128" r="8" fill="#0a0a0a"/></svg>
+            </div>
+            <div class="msg-content" style="flex:1">
+              <div class="name">Glot <span class="app-tag">APP</span><span class="time">9:15 AM</span></div>
+              <div class="msg-text">On it ✦ Here's what you missed:</div>
+              <div class="glot-card">
+                <div class="card-title">✦ 3-day thread · TL;DR</div>
+                <ul>
+                  <li><b>Decision:</b> Launch date moved to Oct 14 (Aman confirmed)</li>
+                  <li><b>Blocker:</b> App Store review still pending — Rob following up</li>
+                  <li><b>Action:</b> Anushree to share final copy deck by EOD today</li>
+                </ul>
+                <div class="tag-row">
+                  <span class="atag">@Aman Arora</span>
+                  <span class="atag">@Rob Baron</span>
+                  <span class="atag">@Anushree Godbole</span>
+                </div>
+              </div>
+              <div class="reactions">
+                <span class="rx">🙌 6</span>
+                <span class="rx">✅ 4</span>
+                <span class="rx">🟢 3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <span class="chat-input-icon">⊕</span>
+          <span class="chat-input-text">Message #product-launch</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 2: Engineering channel -->
+    <div class="channel-demo" id="demo2" style="transition-delay:.2s">
+      <div class="slack-sidebar">
+        <div class="slack-ws">
+          <div class="ws-icon">G</div>
+          <div class="ws-name">Gang HQ</div>
+        </div>
+        <div class="sidebar-label">Channels</div>
+        <div class="sidebar-ch"><span class="hash">#</span> product-launch</div>
+        <div class="sidebar-ch"><span class="hash">#</span> design</div>
+        <div class="sidebar-ch active"><span class="hash">#</span> engineering <span class="unread">12</span></div>
+        <div class="sidebar-ch"><span class="hash">#</span> ops</div>
+        <div class="sidebar-ch"><span class="hash">#</span> random</div>
+        <div class="glot-online">
+          <div class="av-tiny">
+            <svg width="20" height="22" viewBox="0 0 200 220"><path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/></svg>
+          </div>
+          <div><div class="av-tiny-name">Glot</div><div class="av-tiny-status">● Active</div></div>
+        </div>
+      </div>
+      <div class="slack-chat">
+        <div class="chat-header">
+          <span style="font-size:.9rem;color:rgba(255,255,255,.4)">#</span>
+          <span class="ch-name">engineering</span>
+          <span class="ch-desc">| Build fast. Ship clean.</span>
+          <span class="members">8 members</span>
+        </div>
+        <div class="chat-body">
+          <div class="msg-row">
+            <div class="av av-human" style="background:linear-gradient(135deg,#4a154b,#e01e5a);font-size:.65rem;color:#fff">RB</div>
+            <div class="msg-content">
+              <div class="name">Rob B. <span class="time">2:31 PM</span></div>
+              <div class="msg-text"><span class="mention">@Glot</span> what's our API rate limit situation? can't find it in the docs</div>
+            </div>
+          </div>
+          <div class="msg-row" id="glotreply2">
+            <div class="av av-glot">
+              <svg width="22" height="24" viewBox="0 0 200 220"><path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/><circle cx="84" cy="128" r="8" fill="#0a0a0a"/><circle cx="116" cy="128" r="8" fill="#0a0a0a"/></svg>
+            </div>
+            <div class="msg-content" style="flex:1">
+              <div class="name">Glot <span class="app-tag">APP</span><span class="time">2:31 PM</span></div>
+              <div class="msg-text">Found it — from the config thread 3 weeks ago:</div>
+              <div class="glot-card">
+                <div class="card-title">⚡ API Limits · current config</div>
+                <ul>
+                  <li>Production: <span style="color:var(--glot)">1,000 req/min</span> per workspace</li>
+                  <li>Burst: up to <span style="color:var(--cine)">5,000 req/min</span> for 30s</li>
+                  <li>Slack webhook limit: <span style="color:var(--slk-blue)">1 msg/sec</span> per channel</li>
+                </ul>
+                <div class="tag-row">
+                  <span class="atag" style="background:rgba(194,255,31,.1);color:var(--glot);border-color:rgba(194,255,31,.25)">Source: #eng-config, May 14</span>
+                </div>
+              </div>
+              <div class="reactions"><span class="rx">🚀 2</span><span class="rx">👀 1</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <span class="chat-input-icon">⊕</span>
+          <span class="chat-input-text">Message #engineering</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO 3: Cross-channel hand-off -->
+    <div class="channel-demo" id="demo3" style="transition-delay:.4s">
+      <div class="slack-sidebar">
+        <div class="slack-ws">
+          <div class="ws-icon">G</div>
+          <div class="ws-name">Gang HQ</div>
+        </div>
+        <div class="sidebar-label">Channels</div>
+        <div class="sidebar-ch active"><span class="hash">#</span> design <span class="unread">5</span></div>
+        <div class="sidebar-ch"><span class="hash">#</span> engineering</div>
+        <div class="sidebar-ch"><span class="hash">#</span> product-launch</div>
+        <div class="sidebar-ch"><span class="hash">#</span> ops</div>
+        <div class="sidebar-ch"><span class="hash">#</span> random</div>
+        <div class="glot-online">
+          <div class="av-tiny">
+            <svg width="20" height="22" viewBox="0 0 200 220"><path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/></svg>
+          </div>
+          <div><div class="av-tiny-name">Glot</div><div class="av-tiny-status">● Active</div></div>
+        </div>
+      </div>
+      <div class="slack-chat">
+        <div class="chat-header">
+          <span style="font-size:.9rem;color:rgba(255,255,255,.4)">#</span>
+          <span class="ch-name">design</span>
+          <span class="ch-desc">| Pixels and purpose</span>
+          <span class="members">6 members</span>
+        </div>
+        <div class="chat-body">
+          <div class="msg-row">
+            <div class="av av-human2" style="background:linear-gradient(135deg,#0a3a2a,#2eb67d);font-size:.65rem;color:#fff">AG</div>
+            <div class="msg-content">
+              <div class="name">Anushree G. <span class="time">4:07 PM</span></div>
+              <div class="msg-text">Finalised the onboarding flow — 6 screens. <span class="mention">@Glot</span> can you brief eng on what they need to build?</div>
+            </div>
+          </div>
+          <div class="msg-row">
+            <div class="av av-glot">
+              <svg width="22" height="24" viewBox="0 0 200 220"><path d="M100 56 C150 56 168 96 168 130 C168 176 138 198 100 198 C62 198 32 176 32 130 C32 96 50 56 100 56 Z" fill="#c2ff1f"/><circle cx="84" cy="128" r="8" fill="#0a0a0a"/><circle cx="116" cy="128" r="8" fill="#0a0a0a"/></svg>
+            </div>
+            <div class="msg-content" style="flex:1">
+              <div class="name">Glot <span class="app-tag">APP</span><span class="time">4:07 PM</span></div>
+              <div class="msg-text">Got it — I've already read the Figma notes. Sending a brief to <span class="mention">#engineering</span> now ✦</div>
+              <div class="glot-card">
+                <div class="card-title">→ Forwarded to #engineering</div>
+                <ul>
+                  <li>6 screens: Welcome → Workspace → Channels → Invite → Glot intro → Done</li>
+                  <li>Key interaction: smooth scroll snapping, no jumps</li>
+                  <li>Assets live in Figma · Component library v2.3</li>
+                </ul>
+                <div class="tag-row">
+                  <span class="atag">@Rob Baron</span>
+                  <span class="atag" style="background:rgba(255,212,0,.1);color:var(--cine);border-color:rgba(255,212,0,.25)">Due: Friday</span>
+                </div>
+              </div>
+              <div class="reactions"><span class="rx">💚 4</span><span class="rx">🤝 3</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <span class="chat-input-icon">⊕</span>
+          <span class="chat-input-text">Message #design</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ FEATURES ═══════════ -->
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow reveal">02 — What Glot does</span>
+    <h2 class="sec reveal delay-1">Everything your team <em>forgot</em> to do</h2>
+    <p class="lead reveal delay-2">Glot doesn't wait to be asked. It listens in the background and steps in at exactly the right moment.</p>
+    <div class="features-grid">
+      <div class="feat reveal">
+        <span class="feat-num">01</span>
+        <span class="feat-icon">🧠</span>
+        <div class="feat-title">Thread Intelligence</div>
+        <div class="feat-desc">Reads every message in a channel and builds a living summary. Ask Glot "what did I miss?" and get a clean TL;DR in seconds.</div>
+      </div>
+      <div class="feat reveal delay-1">
+        <span class="feat-num">02</span>
+        <span class="feat-icon">⚡</span>
+        <div class="feat-title">Instant Routing</div>
+        <div class="feat-desc">Glot identifies who owns what and pings them directly. No more messages disappearing into the void.</div>
+      </div>
+      <div class="feat reveal delay-2">
+        <span class="feat-num">03</span>
+        <span class="feat-icon">🔗</span>
+        <div class="feat-title">Cross-channel Context</div>
+        <div class="feat-desc">Context doesn't get lost between channels. Glot carries decisions, assets, and blockers wherever they need to go.</div>
+      </div>
+      <div class="feat reveal">
+        <span class="feat-num">04</span>
+        <span class="feat-icon">📋</span>
+        <div class="feat-title">Decision Extraction</div>
+        <div class="feat-desc">Pulls every decision from a thread and logs them cleanly. Your team always knows what was agreed and when.</div>
+      </div>
+      <div class="feat reveal delay-1">
+        <span class="feat-num">05</span>
+        <span class="feat-icon">🎯</span>
+        <div class="feat-title">Action Tracking</div>
+        <div class="feat-desc">Spots action items in conversation and follows up automatically. Nothing falls through the cracks.</div>
+      </div>
+      <div class="feat reveal delay-2">
+        <span class="feat-num">06</span>
+        <span class="feat-icon">🌱</span>
+        <div class="feat-title">Gets Smarter Daily</div>
+        <div class="feat-desc">Learns your team's language, shortcuts, and patterns. The longer Glot's around, the more useful it becomes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ VISION ═══════════ -->
+<section id="vision">
+  <div class="vision-bg"></div>
+  <div class="wrap">
+    <div class="vision-inner">
+      <div class="vision-q reveal">"</div>
+      <p class="vision-text reveal delay-1">
+        Bring <span class="gl">Glot</span> into Slack and intelligence stops being a destination you visit —
+        it becomes a teammate you <span class="hl">talk to.</span>
+        Glot listens in the channels you already live in,
+        turns scattered threads into <span class="hl">clear next steps,</span>
+        and hands context off between people and tools
+        without a single tab-switch.
+      </p>
+      <div class="vision-line reveal delay-2"></div>
+      <div class="vision-sign reveal delay-3">The Glot Vision · <b style="color:var(--paper)">Smart where you already work.</b></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ TEAM ═══════════ -->
+<section id="team">
+  <div class="wrap">
+    <span class="eyebrow reveal">03 — The builders</span>
+    <h2 class="sec reveal delay-1">The minds <em>behind</em> Glot</h2>
+    <p class="lead reveal delay-2">Five people with one goal: make your team stupidly well-coordinated.</p>
+    <div class="team-grid">
+      <div class="team-card" style="transition-delay:.1s">
+        <div class="team-avatar t0">JS</div>
+        <div class="team-name">Justin Santer</div>
+        <div class="team-role">Co-founder · Product</div>
+        <div class="team-spark">"Build things people actually use."</div>
+      </div>
+      <div class="team-card" style="transition-delay:.2s">
+        <div class="team-avatar t1">AA</div>
+        <div class="team-name">Aman Arora</div>
+        <div class="team-role">Co-founder · Engineering</div>
+        <div class="team-spark">"Systems that disappear into workflows."</div>
+      </div>
+      <div class="team-card" style="transition-delay:.3s">
+        <div class="team-avatar t2">AG</div>
+        <div class="team-name">Anushree Godbole</div>
+        <div class="team-role">Design</div>
+        <div class="team-spark">"Clarity is the ultimate feature."</div>
+      </div>
+      <div class="team-card" style="transition-delay:.4s">
+        <div class="team-avatar t3">HC</div>
+        <div class="team-name">Hannah Capone</div>
+        <div class="team-role">Growth &amp; Ops</div>
+        <div class="team-spark">"Every team deserves to feel coordinated."</div>
+      </div>
+      <div class="team-card" style="transition-delay:.5s">
+        <div class="team-avatar t4">RB</div>
+        <div class="team-name">Rob Baron</div>
+        <div class="team-role">Engineering</div>
+        <div class="team-spark">"Ship it. Then make it fast."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logo">GLOT</div>
+    <p class="sub">Smart where you already work. · Add Glot to your Slack workspace today.</p>
+    <div class="footer-btns">
+      <button class="btn btn-primary">Add to Slack →</button>
+      <button class="btn btn-ghost">Explore docs</button>
+    </div>
+    <p style="margin-top:40px;color:rgba(255,255,255,.12);font-size:.72rem">
+      © 2025 Glot · Built with love and too many Slack messages
+    </p>
+  </div>
+</footer>
+
+<!-- HIDDEN SVG DEFS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="bodyG" cx="38%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#eaffb0"/>
+      <stop offset="38%" stop-color="#c2ff1f"/>
+      <stop offset="100%" stop-color="#7fb50d"/>
+    </radialGradient>
+    <radialGradient id="ballG" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#eaffb0"/>
+      <stop offset="100%" stop-color="#9ed414"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<script>
+/* ══════════════════════════════════════════
+   WEB AUDIO — CINEMATIC AMBIENT ENGINE
+══════════════════════════════════════════ */
+let audioCtx, masterGain, musicPlaying = false;
+const nodes = [];
+
+function buildMusic(ctx) {
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0, ctx.currentTime);
+  master.gain.linearRampToValueAtTime(0.7, ctx.currentTime + 4);
+  master.connect(ctx.destination);
+
+  /* ── reverb (convolver approximated with feedback delay network) ── */
+  function makeReverb(ctx, dur = 3.2, decay = 2.4) {
+    const len = ctx.sampleRate * dur;
+    const buf = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = buf.getChannelData(ch);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, decay);
+    }
+    const conv = ctx.createConvolver();
+    conv.buffer = buf;
+    return conv;
+  }
+  const reverb = makeReverb(ctx);
+  const reverbGain = ctx.createGain(); reverbGain.gain.value = 0.38;
+  reverb.connect(reverbGain); reverbGain.connect(master);
+
+  /* ── low-pass filter for warmth ── */
+  const lp = ctx.createBiquadFilter();
+  lp.type = 'lowpass'; lp.frequency.value = 3400; lp.Q.value = 0.7;
+  lp.connect(master);
+
+  /* ── drone bass ── */
+  function makeDrone(freq, gain = 0.08) {
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    const lfo = ctx.createOscillator();
+    const lfoG = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    lfo.type = 'sine'; lfo.frequency.value = 0.08 + Math.random() * 0.04;
+    lfoG.gain.value = freq * 0.004;
+    lfo.connect(lfoG); lfoG.connect(osc.frequency);
+    g.gain.setValueAtTime(0, ctx.currentTime);
+    g.gain.linearRampToValueAtTime(gain, ctx.currentTime + 3);
+    osc.connect(g); g.connect(lp); g.connect(reverb);
+    osc.start(); lfo.start();
+    nodes.push(osc, lfo);
+  }
+  makeDrone(55,  0.10);
+  makeDrone(82.4,0.07);
+  makeDrone(110, 0.05);
+
+  /* ── ambient pad chords — E minor pentatonic spread ── */
+  const padNotes = [164.8, 196, 246.9, 293.7, 329.6, 392, 440, 493.9];
+  padNotes.forEach((freq, i) => {
+    const osc = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
+    const g = ctx.createGain();
+    osc.type = 'sine'; osc.frequency.value = freq;
+    osc2.type = 'sine'; osc2.frequency.value = freq * 1.004;
+    const delay = i * 0.45 + Math.random() * 0.5;
+    g.gain.setValueAtTime(0, ctx.currentTime + delay);
+    g.gain.linearRampToValueAtTime(0.028 + Math.random() * 0.012, ctx.currentTime + delay + 2.5);
+    osc.connect(g); osc2.connect(g);
+    g.connect(lp); g.connect(reverb);
+    osc.start(ctx.currentTime + delay);
+    osc2.start(ctx.currentTime + delay);
+    nodes.push(osc, osc2);
+
+    /* slow swell LFO per pad */
+    const swellLFO = ctx.createOscillator();
+    const swellG = ctx.createGain();
+    swellLFO.frequency.value = 0.04 + i * 0.007;
+    swellG.gain.value = 0.018;
+    swellLFO.connect(swellG); swellG.connect(g.gain);
+    swellLFO.start(ctx.currentTime + delay);
+    nodes.push(swellLFO);
+  });
+
+  /* ── subtle sparkle pings (high glot-green tones) ── */
+  function sparkle() {
+    if (!musicPlaying) return;
+    const freq = [1318.5, 1567.9, 1760, 2093, 2349.3][Math.floor(Math.random() * 5)];
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    const now = ctx.currentTime;
+    osc.type = 'sine'; osc.frequency.value = freq;
+    g.gain.setValueAtTime(0, now);
+    g.gain.linearRampToValueAtTime(0.04, now + 0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 1.8);
+    osc.connect(g); g.connect(reverb);
+    osc.start(now); osc.stop(now + 2);
+    nodes.push(osc);
+    setTimeout(sparkle, 2000 + Math.random() * 4000);
+  }
+  setTimeout(sparkle, 3000);
+
+  /* ── slow evolving melody (pentatonic minor, high octave) ── */
+  const melNotes = [329.6, 392, 440, 523.3, 587.3, 659.3, 784];
+  let melIdx = 0;
+  function playMelNote() {
+    if (!musicPlaying) return;
+    const freq = melNotes[melIdx % melNotes.length];
+    melIdx += Math.random() > 0.5 ? 1 : 2;
+    if (Math.random() > 0.6) { setTimeout(playMelNote, 800 + Math.random() * 1200); return; }
+    const osc = ctx.createOscillator();
+    const g = ctx.createGain();
+    const now = ctx.currentTime;
+    osc.type = 'sine'; osc.frequency.value = freq;
+    g.gain.setValueAtTime(0, now);
+    g.gain.linearRampToValueAtTime(0.06, now + 0.08);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 2.4);
+    osc.connect(g); g.connect(lp); g.connect(reverb);
+    osc.start(now); osc.stop(now + 2.8);
+    nodes.push(osc);
+    setTimeout(playMelNote, 900 + Math.random() * 1600);
+  }
+  setTimeout(playMelNote, 5000);
+
+  return master;
+}
+
+function startMusic() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  musicPlaying = true;
+  masterGain = buildMusic(audioCtx);
+  document.getElementById('music-ctrl').textContent = '♫';
+  document.getElementById('music-ctrl').classList.add('show');
+}
+
+function toggleMusic() {
+  if (!audioCtx) return;
+  const ctrl = document.getElementById('music-ctrl');
+  if (musicPlaying) {
+    masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 1.5);
+    musicPlaying = false;
+    ctrl.textContent = '♪';
+    ctrl.style.opacity = '.5';
+  } else {
+    masterGain.gain.linearRampToValueAtTime(0.7, audioCtx.currentTime + 2);
+    musicPlaying = true;
+    ctrl.textContent = '♫';
+    ctrl.style.opacity = '1';
+  }
+}
+
+function enterSite() {
+  document.getElementById('gate').classList.add('gone');
+  startMusic();
+  setTimeout(runScene1, 1400);
+}
+document.getElementById('music-ctrl').addEventListener('click', toggleMusic);
+
+/* ══════════════════════════════════════════
+   SLACK SCENE ANIMATIONS
+══════════════════════════════════════════ */
+function runScene1() {
+  const typing = document.getElementById('typing1');
+  const reply  = document.getElementById('glotreply1');
+  typing.classList.add('show');
+  setTimeout(() => {
+    typing.classList.remove('show');
+    reply.style.display = 'block';
+    setTimeout(() => {
+      reply.querySelectorAll('.rx').forEach((r, i) => {
+        r.style.animationDelay = (i * 0.18) + 's';
+      });
+    }, 300);
+  }, 2800);
+}
+
+/* ══════════════════════════════════════════
+   INTERSECTION OBSERVER — REVEALS
+══════════════════════════════════════════ */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal, .team-card, .channel-demo').forEach(el => revealObs.observe(el));
+
+/* ══════════════════════════════════════════
+   SCROLL PROGRESS
+══════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+});
+
+/* ══════════════════════════════════════════
+   TICKER CONTENT
+══════════════════════════════════════════ */
+const tickerItems = [
+  '<span class="ticker-item"><b>47</b> messages summarised <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item"><b>6</b> action items extracted <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item">Cross-channel handoff <b>seamless</b> <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item">Context <b>never lost</b> <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item"><b>3</b> blockers surfaced <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item">Team synced in <b>20 seconds</b> <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item">Smart where you <b>already work</b> <span class="ticker-dot">·</span></span>',
+  '<span class="ticker-item">Glot <b>replied</b> before the meeting started <span class="ticker-dot">·</span></span>',
+];
+const track = document.getElementById('tickerTrack');
+const full = [...tickerItems, ...tickerItems].join('');
+track.innerHTML = full;
+</script>
+</body>
+</html>
